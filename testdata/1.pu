@@ -1,0 +1,37 @@
+@startuml
+
+rectangle "ゴール(目的)" as goal
+
+usecase "設計" as design
+usecase "レビュー対応" as review_design
+usecase "feature1開発" as develop_feature_1
+note left
+xxが担当
+end note
+usecase "レビュー対応" as review_develop_feature_1
+
+usecase "feature2開発" as develop_feature_2
+note left
+yyが担当
+end note
+usecase "レビュー対応" as review_develop_feature_2
+usecase "結合テスト" as test
+usecase "リリース" as release
+usecase "finish" as finish
+
+goal --> design
+design --> review_design
+review_design --> develop_feature_1
+review_design --> develop_feature_2
+
+develop_feature_1 --> review_develop_feature_1
+develop_feature_2 --> review_develop_feature_2
+
+review_develop_feature_1 --> test
+review_develop_feature_2 --> test
+
+test --> release
+release --> finish
+
+
+@enduml
