@@ -1,4 +1,4 @@
-package main
+package gdag
 
 import "fmt"
 
@@ -9,32 +9,32 @@ const (
 	usecase   = nodeType("usecase")
 )
 
-type node struct {
+type Node struct {
 	nodeType nodeType
 	text     string
 	as       string // plantumlでの識別子。自動で生成したいけど、例えばa, b, ...とかにしちゃうと、他の人がplantumlを編集するとき辛くなる。あと、識別子なので重複する場合はエラーとする。
 	note     string
-	parents  []*node
-	children []*node
+	parents  []*Node
+	children []*Node
 }
 
-func newNode(nodeType nodeType, text, as string) *node {
-	return &node{
+func newNode(nodeType nodeType, text, as string) *Node {
+	return &Node{
 		nodeType: nodeType,
 		text:     text,
 		as:       as,
 	}
 }
 
-func newGoal(text, as string) *node {
+func NewGoal(text, as string) *Node {
 	return newNode(rectangle, text, as)
 }
 
-func newTask(text, as string) *node {
+func NewTask(text, as string) *Node {
 	return newNode(usecase, text, as)
 }
 
-func (upstream *node) connect(current *node) *node {
+func (upstream *Node) Connect(current *Node) *Node {
 	// ここはもう少し考える必要がありそう。
 	for _, child := range upstream.children {
 		if current.as == child.as {
@@ -48,38 +48,11 @@ func (upstream *node) connect(current *node) *node {
 	return current
 }
 
-func (current *node) addNote(note string) {
+func (current *Node) AddNote(note string) {
 	current.note = note
 }
 
-func main() {
-	goal := newGoal("ゴール(目的)", "goal")
-
-	design := newTask("設計", "design")
-	review_design := newTask("レビュー対応", "review_design")
-
-	develop_feature_1 := newTask("feature1開発", "develop_feature_1")
-	develop_feature_1.addNote("xxが担当")
-	review_develop_feature_1 := newTask("レビュー対応", "review_develop_feature_1")
-
-	develop_feature_2 := newTask("feature2開発", "develop_feature_2")
-	develop_feature_2.addNote("yyが担当")
-	review_develop_feature_2 := newTask("レビュー対応", "review_develop_feature_2")
-
-	test := newTask("結合テスト", "test")
-	release := newTask("リリース", "release")
-	finish := newTask("finish", "finish")
-
-	goal.connect(design).connect(review_design).connect(develop_feature_1).connect(review_develop_feature_1).connect(test)
-	review_design.connect(develop_feature_2).connect(review_develop_feature_2).connect(test)
-	test.connect(release).connect(finish)
-
-	if err := generateUML(goal); err != nil {
-		panic(err)
-	}
-}
-
-func generateUML(goal *node) error {
+func GenerateUML(goal *Node) error {
 	fmt.Println("@startuml")
 
 	fmt.Println(generateComponents(goal))
@@ -89,13 +62,13 @@ func generateUML(goal *node) error {
 	return nil
 }
 
-func generateComponents(goal *node) string {
+func generateComponents(goal *Node) string {
 	generateComponent(goal)
 	return dstComponents
 }
 
 var dstComponents string // 要リファクタ
-func generateComponent(n *node) {
+func generateComponent(n *Node) {
 	if n.nodeType == rectangle {
 		dstComponents += fmt.Sprintf("rectangle \"%s\" as %s\n", n.text, n.as)
 	}
@@ -112,14 +85,14 @@ func generateComponent(n *node) {
 }
 
 var dstRelations string // 要リファクタ
-func generateRelations(goal *node) string {
+func generateRelations(goal *Node) string {
 	generateRelation(goal)
 	return dstRelations
 }
 
 var uniq = make(map[string]struct{})
 
-func generateRelation(n *node) {
+func generateRelation(n *Node) {
 	r := fmt.Sprintf("%s --> ", n.as)
 	for _, child := range n.children {
 		key := n.as + child.as
