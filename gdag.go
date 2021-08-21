@@ -80,8 +80,15 @@ func generateComponents(node *Node) string {
 	return dstComponents
 }
 
+var uniqC = make(map[int]struct{})
+
 var dstComponents string // 要リファクタ
 func generateComponent(n *Node) {
+	if _, ok := uniqC[n.as]; ok {
+		return
+	}
+	uniqC[n.as] = struct{}{}
+
 	if n.nodeType == rectangle {
 		s := fmt.Sprintf("rectangle \"%s\" as %d", n.text, n.as)
 		if len(n.color) != 0 {
@@ -113,16 +120,16 @@ func generateRelations(node *Node) string {
 	return generateRelation(node, "")
 }
 
-var uniq = make(map[string]struct{})
+var uniqR = make(map[string]struct{})
 
 func generateRelation(n *Node, out string) string {
 	r := fmt.Sprintf("%d --> ", n.as)
 	for _, d := range n.downstream {
 		key := fmt.Sprintf("%d%d", n.as, d.as)
-		if _, ok := uniq[key]; ok {
+		if _, ok := uniqR[key]; ok {
 			continue
 		}
-		uniq[key] = struct{}{}
+		uniqR[key] = struct{}{}
 
 		tmp := fmt.Sprintf("%s%d\n", r, d.as)
 		out += generateRelation(d, tmp)

@@ -49,9 +49,6 @@ func Example() {
 	// yyが担当
 	// end note
 	// usecase "レビュー対応" as 7
-	// usecase "結合テスト" as 8
-	// usecase "リリース" as 9
-	// usecase "finish" as 10 #DarkGray
 	//
 	// 1 --> 2
 	// 2 --> 3
