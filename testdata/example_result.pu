@@ -1,0 +1,33 @@
+@startuml
+rectangle "ゴール(目的)" as 1
+usecase "設計" as 2 #DarkGray
+usecase "レビュー対応" as 3 #DarkGray
+usecase "feature1開発" as 4
+note left
+xxが担当
+end note
+usecase "レビュー対応" as 5
+usecase "結合テスト" as 8
+usecase "リリース" as 9
+usecase "finish" as 10 #DarkGray
+usecase "feature2開発" as 6 #DarkGray
+note left
+yyが担当
+end note
+usecase "レビュー対応" as 7
+usecase "結合テスト" as 8
+usecase "リリース" as 9
+usecase "finish" as 10 #DarkGray
+
+1 --> 2
+2 --> 3
+3 --> 4
+4 --> 5
+5 --> 8
+8 --> 9
+9 --> 10
+3 --> 6
+6 --> 7
+7 --> 8
+
+@enduml
