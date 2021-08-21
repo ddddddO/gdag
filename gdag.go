@@ -82,7 +82,7 @@ func generateComponents(node *Node) string {
 
 var uniqC = make(map[int]struct{})
 
-var dstComponents string // 要リファクタ
+var dstComponents string // 要リファクタ。時間かかるからこのままでもいいと思う。
 func generateComponent(n *Node) {
 	if _, ok := uniqC[n.as]; ok {
 		return
