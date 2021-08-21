@@ -16,11 +16,11 @@ type Node struct {
 	// plantumlでの識別子。自動で生成したいけど、例えばa, b, ...とかにしちゃうと、他の人がplantumlを編集するとき辛くなる。あと、識別子なので重複する場合はエラーとする。
 	// の予定だったが、自動で生成する。連番。たぶん他の人がumlいじることはないとも思う。
 	// せめて、連番ではなく、置換しやすいように少し長めのユニークなIDにしたほうがいいかも。テストできそうかも考えて実装した方が良さそう。
-	as       int
-	note     string
-	color    string // done: #DarkGray
-	parents  []*Node
-	children []*Node
+	as         int
+	note       string
+	color      string // done: #DarkGray
+	upstream   []*Node
+	downstream []*Node
 }
 
 var nodeIdx int
@@ -50,14 +50,14 @@ func Done(nodes ...*Node) {
 }
 
 func (upstream *Node) Con(current *Node) *Node {
-	for _, child := range upstream.children {
-		if current.as == child.as {
-			return child
+	for _, d := range upstream.downstream {
+		if current.as == d.as {
+			return d
 		}
 	}
 
-	upstream.children = append(upstream.children, current)
-	current.parents = append(current.parents, upstream)
+	upstream.downstream = append(upstream.downstream, current)
+	current.upstream = append(current.upstream, upstream)
 	return current
 }
 
@@ -104,29 +104,28 @@ func generateComponent(n *Node) {
 		dstComponents += fmt.Sprintf("note left\n%s\nend note\n", n.note)
 	}
 
-	for _, child := range n.children {
-		generateComponent(child)
+	for _, d := range n.downstream {
+		generateComponent(d)
 	}
 }
 
-var dstRelations string // 要リファクタ
 func generateRelations(node *Node) string {
-	generateRelation(node)
-	return dstRelations
+	return generateRelation(node, "")
 }
 
 var uniq = make(map[string]struct{})
 
-func generateRelation(n *Node) {
+func generateRelation(n *Node, out string) string {
 	r := fmt.Sprintf("%d --> ", n.as)
-	for _, child := range n.children {
-		key := fmt.Sprintf("%d%d", n.as, child.as)
+	for _, d := range n.downstream {
+		key := fmt.Sprintf("%d%d", n.as, d.as)
 		if _, ok := uniq[key]; ok {
 			continue
 		}
 		uniq[key] = struct{}{}
 
-		dstRelations += fmt.Sprintf("%s%d\n", r, child.as)
-		generateRelation(child)
+		tmp := fmt.Sprintf("%s%d\n", r, d.as)
+		out += generateRelation(d, tmp)
 	}
+	return out
 }
