@@ -117,10 +117,17 @@ func generateRelations(goal *node) string {
 	return dstRelations
 }
 
-// 重複する関係を除外する
+var uniq = make(map[string]struct{})
+
 func generateRelation(n *node) {
 	r := fmt.Sprintf("%s --> ", n.as)
 	for _, child := range n.children {
+		key := n.as + child.as
+		if _, ok := uniq[key]; ok {
+			continue
+		}
+		uniq[key] = struct{}{}
+
 		dstRelations += r + child.as + "\n"
 		generateRelation(child)
 	}
