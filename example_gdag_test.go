@@ -5,26 +5,26 @@ import (
 )
 
 func Example() {
-	goal := g.NewGoal("ゴール(目的)")
+	goal := g.Goal("ゴール(目的)")
 
-	design := g.NewTask("設計")
-	review_design := g.NewTask("レビュー対応")
+	design := g.Task("設計")
+	review_design := g.Task("レビュー対応")
 
-	develop_feature_1 := g.NewTask("feature1開発")
+	develop_feature_1 := g.Task("feature1開発")
 	develop_feature_1.AddNote("xxが担当")
-	review_develop_feature_1 := g.NewTask("レビュー対応")
+	review_develop_feature_1 := g.Task("レビュー対応")
 
-	develop_feature_2 := g.NewTask("feature2開発")
+	develop_feature_2 := g.Task("feature2開発")
 	develop_feature_2.AddNote("yyが担当")
-	review_develop_feature_2 := g.NewTask("レビュー対応")
+	review_develop_feature_2 := g.Task("レビュー対応")
 
-	test := g.NewTask("結合テスト")
-	release := g.NewTask("リリース")
-	finish := g.NewTask("finish")
+	test := g.Task("結合テスト")
+	release := g.Task("リリース")
+	finish := g.Task("finish")
 
-	goal.Connect(design).Connect(review_design).Connect(develop_feature_1).Connect(review_develop_feature_1).Connect(test)
-	review_design.Connect(develop_feature_2).Connect(review_develop_feature_2).Connect(test)
-	test.Connect(release).Connect(finish)
+	goal.Con(design).Con(review_design).Con(develop_feature_1).Con(review_develop_feature_1).Con(test)
+	review_design.Con(develop_feature_2).Con(review_develop_feature_2).Con(test)
+	test.Con(release).Con(finish)
 
 	if err := g.GenerateUML(goal); err != nil {
 		panic(err)

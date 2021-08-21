@@ -33,15 +33,15 @@ func newNode(nodeType nodeType, text string) *Node {
 	}
 }
 
-func NewGoal(text string) *Node {
+func Goal(text string) *Node {
 	return newNode(rectangle, text)
 }
 
-func NewTask(text string) *Node {
+func Task(text string) *Node {
 	return newNode(usecase, text)
 }
 
-func (upstream *Node) Connect(current *Node) *Node {
+func (upstream *Node) Con(current *Node) *Node {
 	// ここはもう少し考える必要がありそう。
 	for _, child := range upstream.children {
 		if current.as == child.as {
