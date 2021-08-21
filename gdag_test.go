@@ -8,23 +8,25 @@ func Example() {
 	goal := g.Goal("ゴール(目的)")
 
 	design := g.Task("設計")
-	review_design := g.Task("レビュー対応")
+	reviewDesign := g.Task("レビュー対応")
 
-	develop_feature_1 := g.Task("feature1開発")
-	develop_feature_1.AddNote("xxが担当")
-	review_develop_feature_1 := g.Task("レビュー対応")
+	developFeature1 := g.Task("feature1開発")
+	developFeature1.Note("xxが担当")
+	reviewDevelopFeature1 := g.Task("レビュー対応")
 
-	develop_feature_2 := g.Task("feature2開発")
-	develop_feature_2.AddNote("yyが担当")
-	review_develop_feature_2 := g.Task("レビュー対応")
+	developFeature2 := g.Task("feature2開発")
+	developFeature2.Note("yyが担当")
+	reviewDevelopFeature2 := g.Task("レビュー対応")
 
 	test := g.Task("結合テスト")
 	release := g.Task("リリース")
 	finish := g.Task("finish")
 
-	goal.Con(design).Con(review_design).Con(develop_feature_1).Con(review_develop_feature_1).Con(test)
-	review_design.Con(develop_feature_2).Con(review_develop_feature_2).Con(test)
+	goal.Con(design).Con(reviewDesign).Con(developFeature1).Con(reviewDevelopFeature1).Con(test)
+	reviewDesign.Con(developFeature2).Con(reviewDevelopFeature2).Con(test)
 	test.Con(release).Con(finish)
+
+	g.Done(design, reviewDesign, developFeature2, finish)
 
 	if err := g.GenerateUML(goal); err != nil {
 		panic(err)
@@ -32,8 +34,8 @@ func Example() {
 	// Output:
 	// @startuml
 	// rectangle "ゴール(目的)" as 1
-	// usecase "設計" as 2
-	// usecase "レビュー対応" as 3
+	// usecase "設計" as 2 #DarkGray
+	// usecase "レビュー対応" as 3 #DarkGray
 	// usecase "feature1開発" as 4
 	// note left
 	// xxが担当
@@ -41,16 +43,16 @@ func Example() {
 	// usecase "レビュー対応" as 5
 	// usecase "結合テスト" as 8
 	// usecase "リリース" as 9
-	// usecase "finish" as 10
-	// usecase "feature2開発" as 6
+	// usecase "finish" as 10 #DarkGray
+	// usecase "feature2開発" as 6 #DarkGray
 	// note left
 	// yyが担当
 	// end note
 	// usecase "レビュー対応" as 7
 	// usecase "結合テスト" as 8
 	// usecase "リリース" as 9
-	// usecase "finish" as 10
-
+	// usecase "finish" as 10 #DarkGray
+	//
 	// 1 --> 2
 	// 2 --> 3
 	// 3 --> 4
@@ -61,7 +63,6 @@ func Example() {
 	// 3 --> 6
 	// 6 --> 7
 	// 7 --> 8
-
+	//
 	// @enduml
-
 }
