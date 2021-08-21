@@ -65,18 +65,18 @@ func (current *Node) Note(note string) {
 	current.note = note
 }
 
-func GenerateUML(goal *Node) error {
+func GenerateUML(node *Node) error {
 	fmt.Println("@startuml")
 
-	fmt.Println(generateComponents(goal))
-	fmt.Println(generateRelations(goal))
+	fmt.Println(generateComponents(node))
+	fmt.Println(generateRelations(node))
 
 	fmt.Println("@enduml")
 	return nil
 }
 
-func generateComponents(goal *Node) string {
-	generateComponent(goal)
+func generateComponents(node *Node) string {
+	generateComponent(node)
 	return dstComponents
 }
 
@@ -110,8 +110,8 @@ func generateComponent(n *Node) {
 }
 
 var dstRelations string // 要リファクタ
-func generateRelations(goal *Node) string {
-	generateRelation(goal)
+func generateRelations(node *Node) string {
+	generateRelation(node)
 	return dstRelations
 }
 
