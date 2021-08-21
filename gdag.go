@@ -12,26 +12,33 @@ const (
 type Node struct {
 	nodeType nodeType
 	text     string
-	as       string // plantumlでの識別子。自動で生成したいけど、例えばa, b, ...とかにしちゃうと、他の人がplantumlを編集するとき辛くなる。あと、識別子なので重複する場合はエラーとする。
+
+	// plantumlでの識別子。自動で生成したいけど、例えばa, b, ...とかにしちゃうと、他の人がplantumlを編集するとき辛くなる。あと、識別子なので重複する場合はエラーとする。
+	// の予定だったが、自動で生成する。連番。たぶん他の人がumlいじることはないとも思う。
+	as       int
 	note     string
 	parents  []*Node
 	children []*Node
 }
 
-func newNode(nodeType nodeType, text, as string) *Node {
+var nodeIdx int
+
+func newNode(nodeType nodeType, text string) *Node {
+	nodeIdx++
+
 	return &Node{
 		nodeType: nodeType,
 		text:     text,
-		as:       as,
+		as:       nodeIdx,
 	}
 }
 
-func NewGoal(text, as string) *Node {
-	return newNode(rectangle, text, as)
+func NewGoal(text string) *Node {
+	return newNode(rectangle, text)
 }
 
-func NewTask(text, as string) *Node {
-	return newNode(usecase, text, as)
+func NewTask(text string) *Node {
+	return newNode(usecase, text)
 }
 
 func (upstream *Node) Connect(current *Node) *Node {
@@ -70,10 +77,10 @@ func generateComponents(goal *Node) string {
 var dstComponents string // 要リファクタ
 func generateComponent(n *Node) {
 	if n.nodeType == rectangle {
-		dstComponents += fmt.Sprintf("rectangle \"%s\" as %s\n", n.text, n.as)
+		dstComponents += fmt.Sprintf("rectangle \"%s\" as %d\n", n.text, n.as)
 	}
 	if n.nodeType == usecase {
-		dstComponents += fmt.Sprintf("usecase \"%s\" as %s\n", n.text, n.as)
+		dstComponents += fmt.Sprintf("usecase \"%s\" as %d\n", n.text, n.as)
 	}
 	if len(n.note) != 0 {
 		dstComponents += fmt.Sprintf("note left\n%s\nend note\n", n.note)
@@ -93,15 +100,15 @@ func generateRelations(goal *Node) string {
 var uniq = make(map[string]struct{})
 
 func generateRelation(n *Node) {
-	r := fmt.Sprintf("%s --> ", n.as)
+	r := fmt.Sprintf("%d --> ", n.as)
 	for _, child := range n.children {
-		key := n.as + child.as
+		key := fmt.Sprintf("%d%d", n.as, child.as)
 		if _, ok := uniq[key]; ok {
 			continue
 		}
 		uniq[key] = struct{}{}
 
-		dstRelations += r + child.as + "\n"
+		dstRelations += fmt.Sprintf("%s%d\n", r, child.as)
 		generateRelation(child)
 	}
 }
