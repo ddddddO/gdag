@@ -18,12 +18,16 @@ func Example() {
 	developFeature2.Note("yyが担当")
 	reviewDevelopFeature2 := g.Task("レビュー対応")
 
+	prepareInfra := g.Task("インフラ準備")
+	prepareInfra.Note("zzが担当")
+
 	test := g.Task("結合テスト")
 	release := g.Task("リリース")
 	finish := g.Task("finish")
 
 	goal.Con(design).Con(reviewDesign).Con(developFeature1).Con(reviewDevelopFeature1).Con(test)
 	reviewDesign.Con(developFeature2).Con(reviewDevelopFeature2).Con(test)
+	reviewDesign.Con(prepareInfra).Con(test)
 	test.Con(release).Con(finish)
 
 	g.Done(design, reviewDesign, developFeature2, finish)
@@ -41,25 +45,31 @@ func Example() {
 	// xxが担当
 	// end note
 	// usecase "レビュー対応" as 5
-	// usecase "結合テスト" as 8
-	// usecase "リリース" as 9
-	// usecase "finish" as 10 #DarkGray
+	// usecase "結合テスト" as 9
+	// usecase "リリース" as 10
+	// usecase "finish" as 11 #DarkGray
 	// usecase "feature2開発" as 6 #DarkGray
 	// note left
 	// yyが担当
 	// end note
 	// usecase "レビュー対応" as 7
+	// usecase "インフラ準備" as 8
+	// note left
+	// zzが担当
+	// end note
 	//
 	// 1 --> 2
 	// 2 --> 3
 	// 3 --> 4
 	// 4 --> 5
-	// 5 --> 8
-	// 8 --> 9
+	// 5 --> 9
 	// 9 --> 10
+	// 10 --> 11
 	// 3 --> 6
 	// 6 --> 7
-	// 7 --> 8
+	// 7 --> 9
+	// 3 --> 8
+	// 8 --> 9
 	//
 	// @enduml
 }
