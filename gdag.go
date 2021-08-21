@@ -1,6 +1,9 @@
 package gdag
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 type nodeType string
 
@@ -135,4 +138,47 @@ func generateRelation(n *Node, out string) string {
 		out += generateRelation(d, tmp)
 	}
 	return out
+}
+
+// 要改修。本当はリレーションに基づいて生成した方が良さそうに思う。
+func GenerateCheckList(n *Node) error {
+	uniqAs(n)
+	sorted := sortedComponentList(uniqAS)
+
+	out := ""
+	for _, v := range sorted {
+		out += fmt.Sprintf("- [ ] %s\n", v)
+	}
+	fmt.Print(out)
+
+	return nil
+}
+
+var uniqAS = make(map[int]string)
+
+func uniqAs(n *Node) {
+	if _, ok := uniqAS[n.as]; ok {
+		return
+	}
+	uniqAS[n.as] = n.text
+
+	for _, d := range n.downstream {
+		uniqAs(d)
+	}
+}
+
+func sortedComponentList(uniq map[int]string) []string {
+	keys := make([]int, 0, len(uniq))
+	for k := range uniq {
+		keys = append(keys, k)
+	}
+	sort.Ints(keys)
+
+	sorted := make([]string, 0, len(keys))
+	for _, k := range keys {
+		v := uniq[k]
+		sorted = append(sorted, v)
+	}
+
+	return sorted
 }

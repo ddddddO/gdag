@@ -4,6 +4,7 @@ Easily manage DAG with Go
 [![Go Reference](https://pkg.go.dev/badge/github.com/ddddddO/gdag.svg)](https://pkg.go.dev/github.com/ddddddO/gdag) [![GitHub release](https://img.shields.io/github/release/ddddddO/gdag.svg)](https://github.com/ddddddO/gdag/releases)
 
 # Demo
+## PlantUML
 
 1. `go run main.go > tmp.pu`
 
@@ -90,3 +91,72 @@ end note
 2. tmp.pu to png
 
 ![image](https://github.com/ddddddO/gdag/blob/main/dag.png)
+
+
+## CheckList
+
+1. `go run main.go`
+
+```go
+package main
+
+import (
+	g "github.com/ddddddO/gdag"
+)
+
+func main() {
+	goal := g.Goal("ゴール(目的)")
+
+	design := g.Task("設計")
+	reviewDesign := g.Task("レビュー対応")
+
+	developFeature1 := g.Task("feature1開発")
+	developFeature1.Note("xxが担当")
+	reviewDevelopFeature1 := g.Task("レビュー対応")
+
+	developFeature2 := g.Task("feature2開発")
+	developFeature2.Note("yyが担当")
+	reviewDevelopFeature2 := g.Task("レビュー対応")
+
+	prepareInfra := g.Task("インフラ準備")
+	prepareInfra.Note("zzが担当")
+
+	test := g.Task("結合テスト")
+	release := g.Task("リリース")
+	finish := g.Task("finish")
+
+	goal.Con(design).Con(reviewDesign).Con(developFeature1).Con(reviewDevelopFeature1).Con(test)
+	reviewDesign.Con(developFeature2).Con(reviewDevelopFeature2).Con(test)
+	reviewDesign.Con(prepareInfra).Con(test)
+	test.Con(release).Con(finish)
+
+	if err := g.GenerateCheckList(design); err != nil {
+		panic(err)
+	}
+}
+```
+
+```
+- [ ] 設計
+- [ ] レビュー対応
+- [ ] feature1開発
+- [ ] レビュー対応
+- [ ] feature2開発
+- [ ] レビュー対応
+- [ ] インフラ準備
+- [ ] 結合テスト
+- [ ] リリース
+- [ ] finish
+```
+
+2. share with members
+- [ ] 設計
+- [ ] レビュー対応
+- [ ] feature1開発
+- [ ] レビュー対応
+- [ ] feature2開発
+- [ ] レビュー対応
+- [ ] インフラ準備
+- [ ] 結合テスト
+- [ ] リリース
+- [ ] finish
