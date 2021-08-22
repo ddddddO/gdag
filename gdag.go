@@ -19,6 +19,7 @@ type Node struct {
 	// plantumlでの識別子。自動で生成したいけど、例えばa, b, ...とかにしちゃうと、他の人がplantumlを編集するとき辛くなる。あと、識別子なので重複する場合はエラーとする。
 	// の予定だったが、自動で生成する。連番。たぶん他の人がumlいじることはないとも思う。
 	// せめて、連番ではなく、置換しやすいように少し長めのユニークなIDにしたほうがいいかも。テストできそうかも考えて実装した方が良さそう。
+	// かつ、ソータブルな値が必須（ソートして使っているところがあるため）
 	as         int
 	note       string
 	color      string // done: #DarkGray
@@ -143,7 +144,7 @@ func generateRelation(n *Node, out string) string {
 // 要改修。本当はリレーションに基づいて生成した方が良さそうに思う。
 func GenerateCheckList(n *Node) error {
 	uniqAs(n)
-	sorted := sortedComponentList(uniqAS)
+	sorted := sortComponentList(uniqAS)
 
 	out := ""
 	for _, v := range sorted {
@@ -167,7 +168,7 @@ func uniqAs(n *Node) {
 	}
 }
 
-func sortedComponentList(uniq map[int]string) []string {
+func sortComponentList(uniq map[int]string) []string {
 	keys := make([]int, 0, len(uniq))
 	for k := range uniq {
 		keys = append(keys, k)
