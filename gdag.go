@@ -147,35 +147,39 @@ func GenerateCheckList(n *Node) error {
 	sorted := sortComponentList(uniqAS)
 
 	out := ""
-	for _, v := range sorted {
-		out += fmt.Sprintf("- [ ] %s\n", v)
+	for _, node := range sorted {
+		if node.color == "#DarkGray" {
+			out += fmt.Sprintf("- [x] %s\n", node.text)
+		} else {
+			out += fmt.Sprintf("- [ ] %s\n", node.text)
+		}
 	}
 	fmt.Print(out)
 
 	return nil
 }
 
-var uniqAS = make(map[int]string)
+var uniqAS = make(map[int]*Node)
 
 func uniqAs(n *Node) {
 	if _, ok := uniqAS[n.as]; ok {
 		return
 	}
-	uniqAS[n.as] = n.text
+	uniqAS[n.as] = n
 
 	for _, d := range n.downstream {
 		uniqAs(d)
 	}
 }
 
-func sortComponentList(uniq map[int]string) []string {
+func sortComponentList(uniq map[int]*Node) []*Node {
 	keys := make([]int, 0, len(uniq))
 	for k := range uniq {
 		keys = append(keys, k)
 	}
 	sort.Ints(keys)
 
-	sorted := make([]string, 0, len(keys))
+	sorted := make([]*Node, 0, len(keys))
 	for _, k := range keys {
 		v := uniq[k]
 		sorted = append(sorted, v)

@@ -100,18 +100,20 @@ func ExampleGenerateCheckList() {
 	reviewDesign.Con(prepareInfra).Con(test)
 	test.Con(release).Con(finish)
 
+	g.Done(design, reviewDesign, developFeature2, finish)
+
 	if err := g.GenerateCheckList(design); err != nil {
 		panic(err)
 	}
 	// Output:
-	// - [ ] 設計
-	// - [ ] レビュー対応
+	// - [x] 設計
+	// - [x] レビュー対応
 	// - [ ] feature1開発
 	// - [ ] レビュー対応
-	// - [ ] feature2開発
+	// - [x] feature2開発
 	// - [ ] レビュー対応
 	// - [ ] インフラ準備
 	// - [ ] 結合テスト
 	// - [ ] リリース
-	// - [ ] finish
+	// - [x] finish
 }

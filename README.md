@@ -130,6 +130,8 @@ func main() {
 	reviewDesign.Con(prepareInfra).Con(test)
 	test.Con(release).Con(finish)
 
+	g.Done(design, reviewDesign, developFeature2, finish)
+
 	if err := g.GenerateCheckList(design); err != nil {
 		panic(err)
 	}
@@ -137,29 +139,29 @@ func main() {
 ```
 
 ```
-- [ ] 設計
-- [ ] レビュー対応
+- [x] 設計
+- [x] レビュー対応
 - [ ] feature1開発
 - [ ] レビュー対応
-- [ ] feature2開発
+- [x] feature2開発
 - [ ] レビュー対応
 - [ ] インフラ準備
 - [ ] 結合テスト
 - [ ] リリース
-- [ ] finish
+- [x] finish
 ```
 
 2. share with members
-- [ ] 設計
-- [ ] レビュー対応
+- [x] 設計
+- [x] レビュー対応
 - [ ] feature1開発
 - [ ] レビュー対応
-- [ ] feature2開発
+- [x] feature2開発
 - [ ] レビュー対応
 - [ ] インフラ準備
 - [ ] 結合テスト
 - [ ] リリース
-- [ ] finish
+- [x] finish
 
 # Reference
 - [about DAG](https://nave-kazu.hatenablog.com/entry/2015/11/30/154810)
