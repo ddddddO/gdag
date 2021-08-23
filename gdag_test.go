@@ -5,9 +5,9 @@ import (
 )
 
 func Example() {
-	goal := g.Goal("ゴール(目的)")
+	var goal *g.Node = g.Goal("ゴール(目的)")
 
-	design := g.Task("設計")
+	var design *g.Node = g.Task("設計")
 	reviewDesign := g.Task("レビュー対応")
 
 	developFeature1 := g.Task("feature1開発")
