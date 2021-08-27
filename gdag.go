@@ -129,7 +129,7 @@ var uniqR = make(map[string]struct{})
 func generateRelation(n *Node, out string) string {
 	r := fmt.Sprintf("%d --> ", n.as)
 	for _, d := range n.downstream {
-		key := fmt.Sprintf("%d%d", n.as, d.as)
+		key := fmt.Sprintf("%d-%d", n.as, d.as)
 		if _, ok := uniqR[key]; ok {
 			continue
 		}
