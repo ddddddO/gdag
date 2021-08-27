@@ -47,9 +47,13 @@ func Task(text string) *Node {
 	return newNode(usecase, text)
 }
 
+const (
+	colorDone = "#DarkGray"
+)
+
 func Done(nodes ...*Node) {
 	for _, n := range nodes {
-		n.color = "#DarkGray"
+		n.color = colorDone
 	}
 }
 
@@ -67,6 +71,10 @@ func (upstream *Node) Con(current *Node) *Node {
 
 func (current *Node) Note(note string) {
 	current.note = note
+}
+
+func (current *Node) isDone() bool {
+	return current.color == colorDone
 }
 
 func GenerateUML(node *Node) error {
@@ -92,17 +100,9 @@ func generateComponent(n *Node) string {
 	uniqC[n.as] = struct{}{}
 
 	dst := ""
-	if n.nodeType == rectangle {
-		s := fmt.Sprintf("rectangle \"%s\" as %d", n.text, n.as)
-		if len(n.color) != 0 {
-			s += fmt.Sprintf(" %s", n.color)
-		}
-		s += "\n"
-
-		dst += s
-	}
-	if n.nodeType == usecase {
-		s := fmt.Sprintf("usecase \"%s\" as %d", n.text, n.as)
+	switch n.nodeType {
+	case rectangle, usecase:
+		s := fmt.Sprintf("%s \"%s\" as %d", n.nodeType, n.text, n.as)
 		if len(n.color) != 0 {
 			s += fmt.Sprintf(" %s", n.color)
 		}
@@ -149,7 +149,7 @@ func GenerateCheckList(n *Node) error {
 
 	out := ""
 	for _, node := range sorted {
-		if node.color == "#DarkGray" {
+		if node.isDone() {
 			out += fmt.Sprintf("- [x] %s\n", node.text)
 		} else {
 			out += fmt.Sprintf("- [ ] %s\n", node.text)
