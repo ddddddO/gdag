@@ -80,19 +80,18 @@ func GenerateUML(node *Node) error {
 }
 
 func generateComponents(node *Node) string {
-	generateComponent(node)
-	return dstComponents
+	return generateComponent(node)
 }
 
 var uniqC = make(map[int]struct{})
 
-var dstComponents string // 要リファクタ。時間かかるからこのままでもいいと思う。
-func generateComponent(n *Node) {
+func generateComponent(n *Node) string {
 	if _, ok := uniqC[n.as]; ok {
-		return
+		return ""
 	}
 	uniqC[n.as] = struct{}{}
 
+	dst := ""
 	if n.nodeType == rectangle {
 		s := fmt.Sprintf("rectangle \"%s\" as %d", n.text, n.as)
 		if len(n.color) != 0 {
@@ -100,7 +99,7 @@ func generateComponent(n *Node) {
 		}
 		s += "\n"
 
-		dstComponents += s
+		dst += s
 	}
 	if n.nodeType == usecase {
 		s := fmt.Sprintf("usecase \"%s\" as %d", n.text, n.as)
@@ -109,15 +108,17 @@ func generateComponent(n *Node) {
 		}
 		s += "\n"
 
-		dstComponents += s
+		dst += s
 	}
 	if len(n.note) != 0 {
-		dstComponents += fmt.Sprintf("note left\n%s\nend note\n", n.note)
+		dst += fmt.Sprintf("note left\n%s\nend note\n", n.note)
 	}
 
 	for _, d := range n.downstream {
-		generateComponent(d)
+		dst += generateComponent(d)
 	}
+
+	return dst
 }
 
 func generateRelations(node *Node) string {
