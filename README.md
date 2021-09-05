@@ -163,5 +163,50 @@ func main() {
 - [ ] リリース
 - [x] finish
 
+## etc
+### short name version
+
+```go
+package main
+
+import (
+	g "github.com/ddddddO/gdag"
+)
+
+func main() {
+	var goal *g.Node = g.G("ゴール(目的)")
+
+	var design *g.Node = g.T("設計")
+	reviewDesign := g.T("レビュー対応")
+
+	developFeature1 := g.T("feature1開発")
+	developFeature1.N("xxが担当")
+	reviewDevelopFeature1 := g.T("レビュー対応")
+
+	developFeature2 := g.T("feature2開発")
+	developFeature2.N("yyが担当")
+	reviewDevelopFeature2 := g.T("レビュー対応")
+
+	prepareInfra := g.T("インフラ準備")
+	prepareInfra.N("zzが担当")
+
+	test := g.T("結合テスト")
+	release := g.T("リリース")
+	finish := g.T("finish")
+
+	goal.C(design).C(reviewDesign).C(developFeature1).C(reviewDevelopFeature1).C(test)
+	reviewDesign.C(developFeature2).C(reviewDevelopFeature2).C(test)
+	reviewDesign.C(prepareInfra).C(test)
+	test.C(release).C(finish)
+
+	g.D(design, reviewDesign, developFeature2, finish)
+
+	if err := g.GUML(goal); err != nil {
+		panic(err)
+	}
+}
+```
+
+
 # Reference
 - [about DAG](https://nave-kazu.hatenablog.com/entry/2015/11/30/154810)
