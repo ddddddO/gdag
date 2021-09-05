@@ -1,0 +1,27 @@
+<html>
+    <body>
+        <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+        <script>
+            mermaid.initialize({ startOnLoad: true });
+        </script>
+
+        Here is one mermaid diagram:
+        <div class="mermaid">
+            gantt
+            dateFormat  YYYY-MM-DD
+
+            section ゴール(目的)
+	設計 :2,2021-9-3,1d
+	レビュー対応 :3,after 2,1d
+	feature1開発 :4,after 3,1d
+	レビュー対応 :5,after 4,1d
+	feature2開発 :6,after 3,4d
+	レビュー対応 :7,after 6,1d
+	インフラ準備 :8,after 3,2d
+	結合テスト :9,after 7,1d
+	リリース :10,after 9,1d
+	finish :11,after 10,1d
+
+        </div>
+    </body>
+</html>

@@ -257,3 +257,74 @@ func ExampleGenerateCheckList() {
 	// - [ ] リリース
 	// - [x] finish
 }
+
+func ExampleGenerateGantt() {
+	var goal *g.Node = g.G("ゴール(目的)")
+
+	var design *g.Node = g.T("設計")
+	design.WithGanttStart("2021-9-3", 1)
+	reviewDesign := g.T("レビュー対応")
+	reviewDesign.WithGantt(1)
+
+	developFeature1 := g.T("feature1開発")
+	developFeature1.N("xxが担当")
+	developFeature1.WithGantt(1)
+	reviewDevelopFeature1 := g.T("レビュー対応")
+	reviewDevelopFeature1.WithGantt(1)
+
+	developFeature2 := g.T("feature2開発")
+	developFeature2.N("yyが担当")
+	developFeature2.WithGantt(4)
+	reviewDevelopFeature2 := g.T("レビュー対応")
+	reviewDevelopFeature2.WithGantt(1)
+
+	prepareInfra := g.T("インフラ準備")
+	prepareInfra.N("zzが担当")
+	prepareInfra.WithGantt(2)
+
+	test := g.T("結合テスト")
+	test.WithGantt(1)
+	release := g.T("リリース")
+	release.WithGantt(1)
+	finish := g.T("finish")
+	finish.WithGantt(1)
+
+	goal.C(design).C(reviewDesign).C(developFeature1).C(reviewDevelopFeature1).C(test)
+	reviewDesign.C(developFeature2).C(reviewDevelopFeature2).C(test)
+	reviewDesign.C(prepareInfra).C(test)
+	test.C(release).C(finish)
+
+	g.D(design, reviewDesign, developFeature2, finish)
+
+	if err := g.GenerateGantt(goal); err != nil {
+		panic(err)
+	}
+	// Output:
+	// <html>
+	//     <body>
+	//         <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+	//         <script>
+	//             mermaid.initialize({ startOnLoad: true });
+	//         </script>
+	//
+	//         Here is one mermaid diagram:
+	//         <div class="mermaid">
+	//             gantt
+	//             dateFormat  YYYY-MM-DD
+	//
+	//             section ゴール(目的)
+	// 	設計 :46,2021-9-3,1d
+	// 	レビュー対応 :47,after 46,1d
+	// 	feature1開発 :48,after 47,1d
+	// 	レビュー対応 :49,after 48,1d
+	// 	feature2開発 :50,after 47,4d
+	// 	レビュー対応 :51,after 50,1d
+	// 	インフラ準備 :52,after 47,2d
+	// 	結合テスト :53,after 51,1d
+	// 	リリース :54,after 53,1d
+	// 	finish :55,after 54,1d
+	//
+	//         </div>
+	//     </body>
+	// </html>
+}
