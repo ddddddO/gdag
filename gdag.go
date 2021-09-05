@@ -15,14 +15,16 @@ const (
 type Node struct {
 	nodeType nodeType
 	text     string
-
 	// plantumlでの識別子。自動で生成したいけど、例えばa, b, ...とかにしちゃうと、他の人がplantumlを編集するとき辛くなる。あと、識別子なので重複する場合はエラーとする。
 	// の予定だったが、自動で生成する。連番。たぶん他の人がumlいじることはないとも思う。
 	// せめて、連番ではなく、置換しやすいように少し長めのユニークなIDにしたほうがいいかも。テストできそうかも考えて実装した方が良さそう。
 	// かつ、ソータブルな値が必須（ソートして使っているところがあるため）
-	as         int
-	note       string
-	color      string // done: #DarkGray
+	as    int
+	note  string
+	color string // done: #DarkGray
+
+	gantt gantt
+
 	upstream   []*Node
 	downstream []*Node
 }
@@ -66,6 +68,20 @@ func (upstream *Node) Con(current *Node) *Node {
 
 	upstream.downstream = append(upstream.downstream, current)
 	current.upstream = append(current.upstream, upstream)
+
+	// TODO:
+	// ここにクリティカルパス用の計算をいれるのは微妙な気がする
+	tmpTerms := 0
+	upstreamCritpath := path{}
+	for _, up := range current.upstream {
+		if up.gantt.criticalpath.terms > tmpTerms {
+			tmpTerms = up.gantt.criticalpath.terms
+			upstreamCritpath = up.gantt.criticalpath
+		}
+	}
+	current.gantt.criticalpath = upstreamCritpath
+	current.gantt.criticalpath.nodes = append(current.gantt.criticalpath.nodes, current)
+	current.gantt.criticalpath.terms += current.gantt.term
 	return current
 }
 
