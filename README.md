@@ -174,42 +174,42 @@ import (
 )
 
 func main() {
-	var goal *g.Node = g.G("ゴール(目的)")
+	var goal *g.Node = g.Goal("ゴール(目的)")
 
-	var design *g.Node = g.T("設計")
+	var design *g.Node = g.Task("設計")
 	design.WithGanttStart("2021-9-3", 1)
-	reviewDesign := g.T("レビュー対応")
+	reviewDesign := g.Task("レビュー対応")
 	reviewDesign.WithGantt(1)
 
-	developFeature1 := g.T("feature1開発")
-	developFeature1.N("xxが担当")
+	developFeature1 := g.Task("feature1開発")
+	developFeature1.Note("xxが担当")
 	developFeature1.WithGantt(1)
-	reviewDevelopFeature1 := g.T("レビュー対応")
+	reviewDevelopFeature1 := g.Task("レビュー対応")
 	reviewDevelopFeature1.WithGantt(1)
 
-	developFeature2 := g.T("feature2開発")
-	developFeature2.N("yyが担当")
+	developFeature2 := g.Task("feature2開発")
+	developFeature2.Note("yyが担当")
 	developFeature2.WithGantt(4)
-	reviewDevelopFeature2 := g.T("レビュー対応")
+	reviewDevelopFeature2 := g.Task("レビュー対応")
 	reviewDevelopFeature2.WithGantt(1)
 
-	prepareInfra := g.T("インフラ準備")
-	prepareInfra.N("zzが担当")
+	prepareInfra := g.Task("インフラ準備")
+	prepareInfra.Note("zzが担当")
 	prepareInfra.WithGantt(2)
 
-	test := g.T("結合テスト")
+	test := g.Task("結合テスト")
 	test.WithGantt(1)
-	release := g.T("リリース")
+	release := g.Task("リリース")
 	release.WithGantt(1)
-	finish := g.T("finish")
+	finish := g.Task("finish")
 	finish.WithGantt(1)
 
-	goal.C(design).C(reviewDesign).C(developFeature1).C(reviewDevelopFeature1).C(test)
-	reviewDesign.C(developFeature2).C(reviewDevelopFeature2).C(test)
-	reviewDesign.C(prepareInfra).C(test)
-	test.C(release).C(finish)
+	goal.Con(design).Con(reviewDesign).Con(developFeature1).Con(reviewDevelopFeature1).Con(test)
+	reviewDesign.Con(developFeature2).Con(reviewDevelopFeature2).Con(test)
+	reviewDesign.Con(prepareInfra).Con(test)
+	test.Con(release).Con(finish)
 
-	g.D(design, reviewDesign, developFeature2, finish)
+	g.Done(design, reviewDesign, developFeature2, finish)
 
 	if err := g.GenerateGantt(goal); err != nil {
 		panic(err)
