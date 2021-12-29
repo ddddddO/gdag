@@ -1,5 +1,8 @@
 # gdag
-Easily manage DAG with Go
+Easily manage 🕸DAG🕷 with Go.<br>
+DAG is an acronym for Directed Acyclic Graph.<br>
+Output is in PlantUML format.<br>
+Useful for progressing tasks.
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/ddddddO/gdag.svg)](https://pkg.go.dev/github.com/ddddddO/gdag) [![GitHub release](https://img.shields.io/github/release/ddddddO/gdag.svg)](https://github.com/ddddddO/gdag/releases)
 
@@ -163,7 +166,7 @@ func main() {
 - [ ] リリース
 - [x] finish
 
-## GanttChart
+## [WIP] GanttChart
 1. `go run main.go > gantt.html`
 
 ```go
