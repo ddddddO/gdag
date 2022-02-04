@@ -4,6 +4,8 @@ DAG is an acronym for Directed Acyclic Graph.<br>
 Output is in PlantUML format.<br>
 Useful for progressing tasks.
 
+⚠It is incompatible with v0.2.0 and earlier versions⚠
+
 [![Go Reference](https://pkg.go.dev/badge/github.com/ddddddO/gdag.svg)](https://pkg.go.dev/github.com/ddddddO/gdag) [![GitHub release](https://img.shields.io/github/release/ddddddO/gdag.svg)](https://github.com/ddddddO/gdag/releases)
 
 # Demo
