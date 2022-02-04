@@ -23,8 +23,6 @@ type Node struct {
 	note  string
 	color string // done: #DarkGray
 
-	gantt gantt
-
 	upstream   []*Node
 	downstream []*Node
 }
@@ -69,19 +67,6 @@ func (upstream *Node) Con(current *Node) *Node {
 	upstream.downstream = append(upstream.downstream, current)
 	current.upstream = append(current.upstream, upstream)
 
-	// TODO:
-	// ここにクリティカルパス用の計算をいれるのは微妙な気がする
-	tmpTerms := 0
-	upstreamCritpath := path{}
-	for _, up := range current.upstream {
-		if up.gantt.criticalpath.terms > tmpTerms {
-			tmpTerms = up.gantt.criticalpath.terms
-			upstreamCritpath = up.gantt.criticalpath
-		}
-	}
-	current.gantt.criticalpath = upstreamCritpath
-	current.gantt.criticalpath.nodes = append(current.gantt.criticalpath.nodes, current)
-	current.gantt.criticalpath.terms += current.gantt.term
 	return current
 }
 
