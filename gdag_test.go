@@ -1,11 +1,13 @@
 package gdag_test
 
 import (
+	"fmt"
+
 	g "github.com/ddddddO/gdag"
 )
 
 func Example() {
-	var goal *g.Node = g.Goal("ゴール(目的)")
+	var dag *g.Node = g.DAG("ゴール(目的)")
 
 	var design *g.Node = g.Task("設計")
 	reviewDesign := g.Task("レビュー対応")
@@ -25,16 +27,18 @@ func Example() {
 	release := g.Task("リリース")
 	finish := g.Task("finish")
 
-	goal.Con(design).Con(reviewDesign).Con(developFeature1).Con(reviewDevelopFeature1).Con(test)
+	dag.Con(design).Con(reviewDesign).Con(developFeature1).Con(reviewDevelopFeature1).Con(test)
 	reviewDesign.Con(developFeature2).Con(reviewDevelopFeature2).Con(test)
 	reviewDesign.Con(prepareInfra).Con(test)
 	test.Con(release).Con(finish)
 
 	g.Done(design, reviewDesign, developFeature2, finish)
 
-	if err := g.GenerateUML(goal); err != nil {
+	uml, err := dag.UML()
+	if err != nil {
 		panic(err)
 	}
+	fmt.Println(uml)
 	// Output:
 	// @startuml
 	// rectangle "ゴール(目的)" as 1
@@ -74,8 +78,8 @@ func Example() {
 	// @enduml
 }
 
-func ExampleGenerateUML() {
-	var goal *g.Node = g.Goal("ゴール(目的)")
+func ExampleUML() {
+	var dag *g.Node = g.DAG("ゴール(目的)")
 
 	var design *g.Node = g.Task("設計")
 	reviewDesign := g.Task("レビュー対応")
@@ -95,16 +99,18 @@ func ExampleGenerateUML() {
 	release := g.Task("リリース")
 	finish := g.Task("finish")
 
-	goal.Con(design).Con(reviewDesign).Con(developFeature1).Con(reviewDevelopFeature1).Con(test)
+	dag.Con(design).Con(reviewDesign).Con(developFeature1).Con(reviewDevelopFeature1).Con(test)
 	reviewDesign.Con(developFeature2).Con(reviewDevelopFeature2).Con(test)
 	reviewDesign.Con(prepareInfra).Con(test)
 	test.Con(release).Con(finish)
 
 	g.Done(design, reviewDesign, developFeature2, finish)
 
-	if err := g.GenerateUML(goal); err != nil {
+	uml, err := dag.UML()
+	if err != nil {
 		panic(err)
 	}
+	fmt.Println(uml)
 	// Output:
 	// @startuml
 	// rectangle "ゴール(目的)" as 12
@@ -144,8 +150,8 @@ func ExampleGenerateUML() {
 	// @enduml
 }
 
-func ExampleGUML() {
-	var goal *g.Node = g.G("ゴール(目的)")
+func ExampleShortMethod() {
+	var dag *g.Node = g.DAG("ゴール(目的)")
 
 	var design *g.Node = g.T("設計")
 	reviewDesign := g.T("レビュー対応")
@@ -165,16 +171,18 @@ func ExampleGUML() {
 	release := g.T("リリース")
 	finish := g.T("finish")
 
-	goal.C(design).C(reviewDesign).C(developFeature1).C(reviewDevelopFeature1).C(test)
+	dag.C(design).C(reviewDesign).C(developFeature1).C(reviewDevelopFeature1).C(test)
 	reviewDesign.C(developFeature2).C(reviewDevelopFeature2).C(test)
 	reviewDesign.C(prepareInfra).C(test)
 	test.C(release).C(finish)
 
 	g.D(design, reviewDesign, developFeature2, finish)
 
-	if err := g.GUML(goal); err != nil {
+	uml, err := dag.UML()
+	if err != nil {
 		panic(err)
 	}
+	fmt.Println(uml)
 	// Output:
 	// @startuml
 	// rectangle "ゴール(目的)" as 23
@@ -214,8 +222,8 @@ func ExampleGUML() {
 	// @enduml
 }
 
-func ExampleGenerateCheckList() {
-	goal := g.Goal("ゴール(目的)")
+func ExampleCheckList() {
+	dag := g.DAG("ゴール(目的)")
 
 	design := g.Task("設計")
 	reviewDesign := g.Task("レビュー対応")
@@ -235,16 +243,18 @@ func ExampleGenerateCheckList() {
 	release := g.Task("リリース")
 	finish := g.Task("finish")
 
-	goal.Con(design).Con(reviewDesign).Con(developFeature1).Con(reviewDevelopFeature1).Con(test)
+	dag.Con(design).Con(reviewDesign).Con(developFeature1).Con(reviewDevelopFeature1).Con(test)
 	reviewDesign.Con(developFeature2).Con(reviewDevelopFeature2).Con(test)
 	reviewDesign.Con(prepareInfra).Con(test)
 	test.Con(release).Con(finish)
 
 	g.Done(design, reviewDesign, developFeature2, finish)
 
-	if err := g.GenerateCheckList(design); err != nil {
+	checkList, err := design.CheckList()
+	if err != nil {
 		panic(err)
 	}
+	fmt.Println(checkList)
 	// Output:
 	// - [x] 設計
 	// - [x] レビュー対応
@@ -256,75 +266,4 @@ func ExampleGenerateCheckList() {
 	// - [ ] 結合テスト
 	// - [ ] リリース
 	// - [x] finish
-}
-
-func ExampleGenerateGantt() {
-	var goal *g.Node = g.Goal("ゴール(目的)")
-
-	var design *g.Node = g.Task("設計")
-	design.WithGanttStart("2021-9-3", 1)
-	reviewDesign := g.Task("レビュー対応")
-	reviewDesign.WithGantt(1)
-
-	developFeature1 := g.Task("feature1開発")
-	developFeature1.Note("xxが担当")
-	developFeature1.WithGantt(1)
-	reviewDevelopFeature1 := g.Task("レビュー対応")
-	reviewDevelopFeature1.WithGantt(1)
-
-	developFeature2 := g.Task("feature2開発")
-	developFeature2.Note("yyが担当")
-	developFeature2.WithGantt(4)
-	reviewDevelopFeature2 := g.Task("レビュー対応")
-	reviewDevelopFeature2.WithGantt(1)
-
-	prepareInfra := g.Task("インフラ準備")
-	prepareInfra.Note("zzが担当")
-	prepareInfra.WithGantt(2)
-
-	test := g.Task("結合テスト")
-	test.WithGantt(1)
-	release := g.Task("リリース")
-	release.WithGantt(1)
-	finish := g.Task("finish")
-	finish.WithGantt(1)
-
-	goal.Con(design).Con(reviewDesign).Con(developFeature1).Con(reviewDevelopFeature1).Con(test)
-	reviewDesign.Con(developFeature2).Con(reviewDevelopFeature2).Con(test)
-	reviewDesign.Con(prepareInfra).Con(test)
-	test.Con(release).Con(finish)
-
-	g.Done(design, reviewDesign, developFeature2, finish)
-
-	if err := g.GenerateGantt(goal); err != nil {
-		panic(err)
-	}
-	// Output:
-	// <html>
-	//     <body>
-	//         <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-	//         <script>
-	//             mermaid.initialize({ startOnLoad: true });
-	//         </script>
-	//
-	//         Here is one mermaid diagram:
-	//         <div class="mermaid">
-	//             gantt
-	//             dateFormat  YYYY-MM-DD
-	//
-	//             section ゴール(目的)
-	// 	設計 :46,2021-9-3,1d
-	// 	レビュー対応 :47,after 46,1d
-	// 	feature1開発 :48,after 47,1d
-	// 	レビュー対応 :49,after 48,1d
-	// 	feature2開発 :50,after 47,4d
-	// 	レビュー対応 :51,after 50,1d
-	// 	インフラ準備 :52,after 47,2d
-	// 	結合テスト :53,after 51,1d
-	// 	リリース :54,after 53,1d
-	// 	finish :55,after 54,1d
-	//
-	//         </div>
-	//     </body>
-	// </html>
 }

@@ -4,6 +4,8 @@ DAG is an acronym for Directed Acyclic Graph.<br>
 Output is in PlantUML format.<br>
 Useful for progressing tasks.
 
+⚠It is incompatible with v0.2.0 and earlier versions⚠
+
 [![Go Reference](https://pkg.go.dev/badge/github.com/ddddddO/gdag.svg)](https://pkg.go.dev/github.com/ddddddO/gdag) [![GitHub release](https://img.shields.io/github/release/ddddddO/gdag.svg)](https://github.com/ddddddO/gdag/releases)
 
 # Demo
@@ -15,11 +17,13 @@ Useful for progressing tasks.
 package main
 
 import (
+	"fmt"
+
 	g "github.com/ddddddO/gdag"
 )
 
 func main() {
-	var goal *g.Node = g.Goal("ゴール(目的)")
+	var dag *g.Node = g.DAG("ゴール(目的)")
 
 	var design *g.Node = g.Task("設計")
 	reviewDesign := g.Task("レビュー対応")
@@ -39,16 +43,18 @@ func main() {
 	release := g.Task("リリース")
 	finish := g.Task("finish")
 
-	goal.Con(design).Con(reviewDesign).Con(developFeature1).Con(reviewDevelopFeature1).Con(test)
+	dag.Con(design).Con(reviewDesign).Con(developFeature1).Con(reviewDevelopFeature1).Con(test)
 	reviewDesign.Con(developFeature2).Con(reviewDevelopFeature2).Con(test)
 	reviewDesign.Con(prepareInfra).Con(test)
 	test.Con(release).Con(finish)
 
 	g.Done(design, reviewDesign, developFeature2, finish)
 
-	if err := g.GenerateUML(goal); err != nil {
+	uml, err := dag.UML()
+	if err != nil {
 		panic(err)
 	}
+	fmt.Println(uml)
 }
 ```
 
@@ -104,11 +110,13 @@ end note
 package main
 
 import (
+	"fmt"
+
 	g "github.com/ddddddO/gdag"
 )
 
 func main() {
-	goal := g.Goal("ゴール(目的)")
+	dag := g.DAG("ゴール(目的)")
 
 	design := g.Task("設計")
 	reviewDesign := g.Task("レビュー対応")
@@ -128,16 +136,18 @@ func main() {
 	release := g.Task("リリース")
 	finish := g.Task("finish")
 
-	goal.Con(design).Con(reviewDesign).Con(developFeature1).Con(reviewDevelopFeature1).Con(test)
+	dag.Con(design).Con(reviewDesign).Con(developFeature1).Con(reviewDevelopFeature1).Con(test)
 	reviewDesign.Con(developFeature2).Con(reviewDevelopFeature2).Con(test)
 	reviewDesign.Con(prepareInfra).Con(test)
 	test.Con(release).Con(finish)
 
 	g.Done(design, reviewDesign, developFeature2, finish)
 
-	if err := g.GenerateCheckList(design); err != nil {
+	checkList, err := design.CheckList()
+	if err != nil {
 		panic(err)
 	}
+	fmt.Println(checkList)
 }
 ```
 
@@ -166,64 +176,6 @@ func main() {
 - [ ] リリース
 - [x] finish
 
-## [WIP] GanttChart
-1. `go run main.go > gantt.html`
-
-```go
-package main
-
-import (
-	g "github.com/ddddddO/gdag"
-)
-
-func main() {
-	var goal *g.Node = g.Goal("ゴール(目的)")
-
-	var design *g.Node = g.Task("設計")
-	design.WithGanttStart("2021-9-3", 1)
-	reviewDesign := g.Task("レビュー対応")
-	reviewDesign.WithGantt(1)
-
-	developFeature1 := g.Task("feature1開発")
-	developFeature1.Note("xxが担当")
-	developFeature1.WithGantt(1)
-	reviewDevelopFeature1 := g.Task("レビュー対応")
-	reviewDevelopFeature1.WithGantt(1)
-
-	developFeature2 := g.Task("feature2開発")
-	developFeature2.Note("yyが担当")
-	developFeature2.WithGantt(4)
-	reviewDevelopFeature2 := g.Task("レビュー対応")
-	reviewDevelopFeature2.WithGantt(1)
-
-	prepareInfra := g.Task("インフラ準備")
-	prepareInfra.Note("zzが担当")
-	prepareInfra.WithGantt(2)
-
-	test := g.Task("結合テスト")
-	test.WithGantt(1)
-	release := g.Task("リリース")
-	release.WithGantt(1)
-	finish := g.Task("finish")
-	finish.WithGantt(1)
-
-	goal.Con(design).Con(reviewDesign).Con(developFeature1).Con(reviewDevelopFeature1).Con(test)
-	reviewDesign.Con(developFeature2).Con(reviewDevelopFeature2).Con(test)
-	reviewDesign.Con(prepareInfra).Con(test)
-	test.Con(release).Con(finish)
-
-	g.Done(design, reviewDesign, developFeature2, finish)
-
-	if err := g.GenerateGantt(goal); err != nil {
-		panic(err)
-	}
-}
-```
-
-2. open gantt.html
-
-![image](https://github.com/ddddddO/gdag/blob/main/gantt.png)
-
 ## etc
 ### short name version
 
@@ -231,11 +183,13 @@ func main() {
 package main
 
 import (
+	"fmt"
+
 	g "github.com/ddddddO/gdag"
 )
 
 func main() {
-	var goal *g.Node = g.G("ゴール(目的)")
+	var dag *g.Node = g.DAG("ゴール(目的)")
 
 	var design *g.Node = g.T("設計")
 	reviewDesign := g.T("レビュー対応")
@@ -255,16 +209,18 @@ func main() {
 	release := g.T("リリース")
 	finish := g.T("finish")
 
-	goal.C(design).C(reviewDesign).C(developFeature1).C(reviewDevelopFeature1).C(test)
+	dag.C(design).C(reviewDesign).C(developFeature1).C(reviewDevelopFeature1).C(test)
 	reviewDesign.C(developFeature2).C(reviewDevelopFeature2).C(test)
 	reviewDesign.C(prepareInfra).C(test)
 	test.C(release).C(finish)
 
 	g.D(design, reviewDesign, developFeature2, finish)
 
-	if err := g.GUML(goal); err != nil {
+	uml, err := dag.UML()
+	if err != nil {
 		panic(err)
 	}
+	fmt.Println(uml)
 }
 ```
 

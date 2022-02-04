@@ -23,8 +23,6 @@ type Node struct {
 	note  string
 	color string // done: #DarkGray
 
-	gantt gantt
-
 	upstream   []*Node
 	downstream []*Node
 }
@@ -41,7 +39,7 @@ func newNode(nodeType nodeType, text string) *Node {
 	}
 }
 
-func Goal(text string) *Node {
+func DAG(text string) *Node {
 	return newNode(rectangle, text)
 }
 
@@ -69,19 +67,6 @@ func (upstream *Node) Con(current *Node) *Node {
 	upstream.downstream = append(upstream.downstream, current)
 	current.upstream = append(current.upstream, upstream)
 
-	// TODO:
-	// ここにクリティカルパス用の計算をいれるのは微妙な気がする
-	tmpTerms := 0
-	upstreamCritpath := path{}
-	for _, up := range current.upstream {
-		if up.gantt.criticalpath.terms > tmpTerms {
-			tmpTerms = up.gantt.criticalpath.terms
-			upstreamCritpath = up.gantt.criticalpath
-		}
-	}
-	current.gantt.criticalpath = upstreamCritpath
-	current.gantt.criticalpath.nodes = append(current.gantt.criticalpath.nodes, current)
-	current.gantt.criticalpath.terms += current.gantt.term
 	return current
 }
 
@@ -93,18 +78,17 @@ func (current *Node) isDone() bool {
 	return current.color == colorDone
 }
 
-func GenerateUML(node *Node) error {
-	fmt.Println("@startuml")
-
-	fmt.Println(generateComponents(node))
-	fmt.Println(generateRelations(node))
-
-	fmt.Println("@enduml")
-	return nil
+// UML outputs dag plant UML.
+func (current *Node) UML() (string, error) {
+	ret := "@startuml" + "\n"
+	ret += current.generateComponents() + "\n"
+	ret += current.generateRelations() + "\n"
+	ret += "@enduml"
+	return ret, nil
 }
 
-func generateComponents(node *Node) string {
-	return generateComponent(node)
+func (current *Node) generateComponents() string {
+	return generateComponent(current)
 }
 
 var uniqC = make(map[int]struct{})
@@ -137,8 +121,8 @@ func generateComponent(n *Node) string {
 	return dst
 }
 
-func generateRelations(node *Node) string {
-	return generateRelation(node, "")
+func (current *Node) generateRelations() string {
+	return generateRelation(current, "")
 }
 
 var uniqR = make(map[string]struct{})
@@ -158,22 +142,20 @@ func generateRelation(n *Node, out string) string {
 	return out
 }
 
-// 要改修。本当はリレーションに基づいて生成した方が良さそうに思う。
-func GenerateCheckList(n *Node) error {
-	uniqAs(n)
+// CheckList outputs task check list.
+func (current *Node) CheckList() (string, error) {
+	uniqAs(current)
 	sorted := sortComponentList(uniqAS)
 
-	out := ""
+	ret := ""
 	for _, node := range sorted {
 		if node.isDone() {
-			out += fmt.Sprintf("- [x] %s\n", node.text)
+			ret += fmt.Sprintf("- [x] %s\n", node.text)
 		} else {
-			out += fmt.Sprintf("- [ ] %s\n", node.text)
+			ret += fmt.Sprintf("- [ ] %s\n", node.text)
 		}
 	}
-	fmt.Print(out)
-
-	return nil
+	return ret, nil
 }
 
 var uniqAS = make(map[int]*Node)
