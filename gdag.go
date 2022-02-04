@@ -39,7 +39,7 @@ func newNode(nodeType nodeType, text string) *Node {
 	}
 }
 
-func Goal(text string) *Node {
+func DAG(text string) *Node {
 	return newNode(rectangle, text)
 }
 

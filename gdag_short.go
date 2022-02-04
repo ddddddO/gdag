@@ -1,10 +1,5 @@
 package gdag
 
-// G is short name of Goal func.
-func G(text string) *Node {
-	return Goal(text)
-}
-
 // T is short name of Task func.
 func T(text string) *Node {
 	return Task(text)

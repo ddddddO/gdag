@@ -7,7 +7,7 @@ import (
 )
 
 func Example() {
-	var goal *g.Node = g.Goal("ゴール(目的)")
+	var dag *g.Node = g.DAG("ゴール(目的)")
 
 	var design *g.Node = g.Task("設計")
 	reviewDesign := g.Task("レビュー対応")
@@ -27,14 +27,14 @@ func Example() {
 	release := g.Task("リリース")
 	finish := g.Task("finish")
 
-	goal.Con(design).Con(reviewDesign).Con(developFeature1).Con(reviewDevelopFeature1).Con(test)
+	dag.Con(design).Con(reviewDesign).Con(developFeature1).Con(reviewDevelopFeature1).Con(test)
 	reviewDesign.Con(developFeature2).Con(reviewDevelopFeature2).Con(test)
 	reviewDesign.Con(prepareInfra).Con(test)
 	test.Con(release).Con(finish)
 
 	g.Done(design, reviewDesign, developFeature2, finish)
 
-	uml, err := goal.UML()
+	uml, err := dag.UML()
 	if err != nil {
 		panic(err)
 	}
@@ -78,8 +78,8 @@ func Example() {
 	// @enduml
 }
 
-func ExampleGenerateUML() {
-	var goal *g.Node = g.Goal("ゴール(目的)")
+func ExampleUML() {
+	var dag *g.Node = g.DAG("ゴール(目的)")
 
 	var design *g.Node = g.Task("設計")
 	reviewDesign := g.Task("レビュー対応")
@@ -99,14 +99,14 @@ func ExampleGenerateUML() {
 	release := g.Task("リリース")
 	finish := g.Task("finish")
 
-	goal.Con(design).Con(reviewDesign).Con(developFeature1).Con(reviewDevelopFeature1).Con(test)
+	dag.Con(design).Con(reviewDesign).Con(developFeature1).Con(reviewDevelopFeature1).Con(test)
 	reviewDesign.Con(developFeature2).Con(reviewDevelopFeature2).Con(test)
 	reviewDesign.Con(prepareInfra).Con(test)
 	test.Con(release).Con(finish)
 
 	g.Done(design, reviewDesign, developFeature2, finish)
 
-	uml, err := goal.UML()
+	uml, err := dag.UML()
 	if err != nil {
 		panic(err)
 	}
@@ -151,7 +151,7 @@ func ExampleGenerateUML() {
 }
 
 func ExampleShortMethod() {
-	var goal *g.Node = g.G("ゴール(目的)")
+	var dag *g.Node = g.DAG("ゴール(目的)")
 
 	var design *g.Node = g.T("設計")
 	reviewDesign := g.T("レビュー対応")
@@ -171,14 +171,14 @@ func ExampleShortMethod() {
 	release := g.T("リリース")
 	finish := g.T("finish")
 
-	goal.C(design).C(reviewDesign).C(developFeature1).C(reviewDevelopFeature1).C(test)
+	dag.C(design).C(reviewDesign).C(developFeature1).C(reviewDevelopFeature1).C(test)
 	reviewDesign.C(developFeature2).C(reviewDevelopFeature2).C(test)
 	reviewDesign.C(prepareInfra).C(test)
 	test.C(release).C(finish)
 
 	g.D(design, reviewDesign, developFeature2, finish)
 
-	uml, err := goal.UML()
+	uml, err := dag.UML()
 	if err != nil {
 		panic(err)
 	}
@@ -222,8 +222,8 @@ func ExampleShortMethod() {
 	// @enduml
 }
 
-func ExampleGenerateCheckList() {
-	goal := g.Goal("ゴール(目的)")
+func ExampleCheckList() {
+	dag := g.DAG("ゴール(目的)")
 
 	design := g.Task("設計")
 	reviewDesign := g.Task("レビュー対応")
@@ -243,7 +243,7 @@ func ExampleGenerateCheckList() {
 	release := g.Task("リリース")
 	finish := g.Task("finish")
 
-	goal.Con(design).Con(reviewDesign).Con(developFeature1).Con(reviewDevelopFeature1).Con(test)
+	dag.Con(design).Con(reviewDesign).Con(developFeature1).Con(reviewDevelopFeature1).Con(test)
 	reviewDesign.Con(developFeature2).Con(reviewDevelopFeature2).Con(test)
 	reviewDesign.Con(prepareInfra).Con(test)
 	test.Con(release).Con(finish)
