@@ -24,13 +24,3 @@ func (upstream *Node) C(current *Node) *Node {
 func (current *Node) N(note string) {
 	current.Note(note)
 }
-
-// GUML is short name of GenerateUML func.
-func GUML(node *Node) error {
-	return GenerateUML(node)
-}
-
-// GCL is short name of GenerateCheckList func.
-func GCL(node *Node) error {
-	return GenerateCheckList(node)
-}

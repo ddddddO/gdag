@@ -1,6 +1,8 @@
 package gdag_test
 
 import (
+	"fmt"
+
 	g "github.com/ddddddO/gdag"
 )
 
@@ -32,9 +34,11 @@ func Example() {
 
 	g.Done(design, reviewDesign, developFeature2, finish)
 
-	if err := g.GenerateUML(goal); err != nil {
+	uml, err := goal.UML()
+	if err != nil {
 		panic(err)
 	}
+	fmt.Println(uml)
 	// Output:
 	// @startuml
 	// rectangle "ゴール(目的)" as 1
@@ -102,9 +106,11 @@ func ExampleGenerateUML() {
 
 	g.Done(design, reviewDesign, developFeature2, finish)
 
-	if err := g.GenerateUML(goal); err != nil {
+	uml, err := goal.UML()
+	if err != nil {
 		panic(err)
 	}
+	fmt.Println(uml)
 	// Output:
 	// @startuml
 	// rectangle "ゴール(目的)" as 12
@@ -144,7 +150,7 @@ func ExampleGenerateUML() {
 	// @enduml
 }
 
-func ExampleGUML() {
+func ExampleShortMethod() {
 	var goal *g.Node = g.G("ゴール(目的)")
 
 	var design *g.Node = g.T("設計")
@@ -172,9 +178,11 @@ func ExampleGUML() {
 
 	g.D(design, reviewDesign, developFeature2, finish)
 
-	if err := g.GUML(goal); err != nil {
+	uml, err := goal.UML()
+	if err != nil {
 		panic(err)
 	}
+	fmt.Println(uml)
 	// Output:
 	// @startuml
 	// rectangle "ゴール(目的)" as 23
@@ -242,9 +250,11 @@ func ExampleGenerateCheckList() {
 
 	g.Done(design, reviewDesign, developFeature2, finish)
 
-	if err := g.GenerateCheckList(design); err != nil {
+	checkList, err := design.CheckList()
+	if err != nil {
 		panic(err)
 	}
+	fmt.Println(checkList)
 	// Output:
 	// - [x] 設計
 	// - [x] レビュー対応
