@@ -8,6 +8,11 @@ Useful for progressing tasks.
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/ddddddO/gdag.svg)](https://pkg.go.dev/github.com/ddddddO/gdag) [![GitHub release](https://img.shields.io/github/release/ddddddO/gdag.svg)](https://github.com/ddddddO/gdag/releases) [![ci](https://github.com/ddddddO/gdag/actions/workflows/ci.yaml/badge.svg)](https://github.com/ddddddO/gdag/actions/workflows/ci.yaml) [![codecov](https://codecov.io/gh/ddddddO/gdag/branch/main/graph/badge.svg?token=OO8ZSJFTL4)](https://codecov.io/gh/ddddddO/gdag)
 
+# Installation
+```console
+go get github.com/ddddddO/gdag
+```
+
 # Demo
 ## PlantUML
 
