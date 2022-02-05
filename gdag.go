@@ -78,6 +78,10 @@ func (current *Node) isDone() bool {
 	return current.color == colorDone
 }
 
+func (current *Node) isDAG() bool {
+	return current.nodeType == rectangle
+}
+
 // UML outputs dag plant UML.
 func (start *Node) UML() (string, error) {
 	ug := newUMLGenerator()
@@ -161,6 +165,11 @@ func (start *Node) CheckList() (string, error) {
 
 	ret := ""
 	for _, node := range sorted {
+		if node.isDAG() {
+			ret += fmt.Sprintf("### %s\n", node.text)
+			continue
+		}
+
 		if node.isDone() {
 			ret += fmt.Sprintf("- [x] %s\n", node.text)
 		} else {

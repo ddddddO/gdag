@@ -250,12 +250,13 @@ func ExampleCheckList() {
 
 	g.Done(design, reviewDesign, developFeature2, finish)
 
-	checkList, err := design.CheckList()
+	checkList, err := dag.CheckList()
 	if err != nil {
 		panic(err)
 	}
 	fmt.Println(checkList)
 	// Output:
+	// ### ゴール(目的)
 	// - [x] 設計
 	// - [x] レビュー対応
 	// - [ ] feature1開発
@@ -391,11 +392,11 @@ func ExampleMultipleCheckLists() {
 
 	g.Done(design, reviewDesign, developFeature2, finish)
 
-	designCheckList, err := design.CheckList()
+	dagCheckList, err := dag.CheckList()
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(designCheckList)
+	fmt.Println(dagCheckList)
 
 	infraCheckList, err := prepareInfra.CheckList()
 	if err != nil {
@@ -403,6 +404,7 @@ func ExampleMultipleCheckLists() {
 	}
 	fmt.Println(infraCheckList)
 	// Output:
+	// ### ゴール(目的)
 	// - [x] 設計
 	// - [x] レビュー対応
 	// - [ ] feature1開発

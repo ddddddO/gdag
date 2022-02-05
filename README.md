@@ -143,7 +143,7 @@ func main() {
 
 	g.Done(design, reviewDesign, developFeature2, finish)
 
-	checkList, err := design.CheckList()
+	checkList, err := dag.CheckList()
 	if err != nil {
 		panic(err)
 	}
@@ -152,6 +152,7 @@ func main() {
 ```
 
 ```
+### ゴール(目的)
 - [x] 設計
 - [x] レビュー対応
 - [ ] feature1開発
@@ -165,6 +166,7 @@ func main() {
 ```
 
 2. share with members
+### ゴール(目的)
 - [x] 設計
 - [x] レビュー対応
 - [ ] feature1開発
