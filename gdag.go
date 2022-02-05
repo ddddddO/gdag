@@ -5,13 +5,6 @@ import (
 	"sort"
 )
 
-type nodeType string
-
-const (
-	rectangle = nodeType("rectangle")
-	usecase   = nodeType("usecase")
-)
-
 type Node struct {
 	nodeType nodeType
 	text     string
@@ -27,6 +20,21 @@ type Node struct {
 	downstream []*Node
 }
 
+type nodeType string
+
+const (
+	rectangle = nodeType("rectangle")
+	usecase   = nodeType("usecase")
+)
+
+func DAG(text string) *Node {
+	return newNode(rectangle, text)
+}
+
+func Task(text string) *Node {
+	return newNode(usecase, text)
+}
+
 var nodeIdx int
 
 func newNode(nodeType nodeType, text string) *Node {
@@ -37,14 +45,6 @@ func newNode(nodeType nodeType, text string) *Node {
 		text:     text,
 		as:       nodeIdx,
 	}
-}
-
-func DAG(text string) *Node {
-	return newNode(rectangle, text)
-}
-
-func Task(text string) *Node {
-	return newNode(usecase, text)
 }
 
 const (
@@ -79,29 +79,37 @@ func (current *Node) isDone() bool {
 }
 
 // UML outputs dag plant UML.
-func (current *Node) UML() (string, error) {
-	// 初期化
-	uniqC = make(map[int]struct{})
-	uniqR = make(map[string]struct{})
+func (start *Node) UML() (string, error) {
+	ug := newUMLGenerator()
 
 	ret := "@startuml" + "\n"
-	ret += current.generateComponents() + "\n"
-	ret += current.generateRelations() + "\n"
+	ret += ug.generateComponents(start) + "\n"
+	ret += ug.generateRelations(start) + "\n"
 	ret += "@enduml"
 	return ret, nil
 }
 
-func (current *Node) generateComponents() string {
-	return generateComponent(current)
+type umlGenerator struct {
+	uniqueC map[int]struct{}
+	uniqueR map[string]struct{}
 }
 
-var uniqC = make(map[int]struct{})
+func newUMLGenerator() *umlGenerator {
+	return &umlGenerator{
+		uniqueC: map[int]struct{}{},
+		uniqueR: map[string]struct{}{},
+	}
+}
 
-func generateComponent(n *Node) string {
-	if _, ok := uniqC[n.as]; ok {
+func (ug *umlGenerator) generateComponents(start *Node) string {
+	return ug.generateComponent(start)
+}
+
+func (ug *umlGenerator) generateComponent(n *Node) string {
+	if _, ok := ug.uniqueC[n.as]; ok {
 		return ""
 	}
-	uniqC[n.as] = struct{}{}
+	ug.uniqueC[n.as] = struct{}{}
 
 	dst := ""
 	switch n.nodeType {
@@ -119,40 +127,37 @@ func generateComponent(n *Node) string {
 	}
 
 	for _, d := range n.downstream {
-		dst += generateComponent(d)
+		dst += ug.generateComponent(d)
 	}
 
 	return dst
 }
 
-func (current *Node) generateRelations() string {
-	return generateRelation(current, "")
+func (ug *umlGenerator) generateRelations(start *Node) string {
+	return ug.generateRelation(start, "")
 }
 
-var uniqR = make(map[string]struct{})
-
-func generateRelation(n *Node, out string) string {
+func (ug *umlGenerator) generateRelation(n *Node, out string) string {
 	r := fmt.Sprintf("%d --> ", n.as)
 	for _, d := range n.downstream {
 		key := fmt.Sprintf("%d-%d", n.as, d.as)
-		if _, ok := uniqR[key]; ok {
+		if _, ok := ug.uniqueR[key]; ok {
 			continue
 		}
-		uniqR[key] = struct{}{}
+		ug.uniqueR[key] = struct{}{}
 
 		tmp := fmt.Sprintf("%s%d\n", r, d.as)
-		out += generateRelation(d, tmp)
+		out += ug.generateRelation(d, tmp)
 	}
 	return out
 }
 
 // CheckList outputs task check list.
-func (current *Node) CheckList() (string, error) {
-	// 初期化
-	uniqAS = make(map[int]*Node)
+func (start *Node) CheckList() (string, error) {
+	clg := newCheckListGenerator()
 
-	uniqAs(current)
-	sorted := sortComponentList(uniqAS)
+	clg.makeUnique(start)
+	sorted := clg.sortComponentList()
 
 	ret := ""
 	for _, node := range sorted {
@@ -165,29 +170,37 @@ func (current *Node) CheckList() (string, error) {
 	return ret, nil
 }
 
-var uniqAS = make(map[int]*Node)
+type checkListGenerator struct {
+	unique map[int]*Node
+}
 
-func uniqAs(n *Node) {
-	if _, ok := uniqAS[n.as]; ok {
-		return
-	}
-	uniqAS[n.as] = n
-
-	for _, d := range n.downstream {
-		uniqAs(d)
+func newCheckListGenerator() *checkListGenerator {
+	return &checkListGenerator{
+		unique: map[int]*Node{},
 	}
 }
 
-func sortComponentList(uniq map[int]*Node) []*Node {
-	keys := make([]int, 0, len(uniq))
-	for k := range uniq {
+func (clg *checkListGenerator) makeUnique(n *Node) {
+	if _, ok := clg.unique[n.as]; ok {
+		return
+	}
+	clg.unique[n.as] = n
+
+	for _, d := range n.downstream {
+		clg.makeUnique(d)
+	}
+}
+
+func (clg *checkListGenerator) sortComponentList() []*Node {
+	keys := make([]int, 0, len(clg.unique))
+	for k := range clg.unique {
 		keys = append(keys, k)
 	}
 	sort.Ints(keys)
 
 	sorted := make([]*Node, 0, len(keys))
 	for _, k := range keys {
-		v := uniq[k]
+		v := clg.unique[k]
 		sorted = append(sorted, v)
 	}
 
