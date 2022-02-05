@@ -80,6 +80,10 @@ func (current *Node) isDone() bool {
 
 // UML outputs dag plant UML.
 func (current *Node) UML() (string, error) {
+	// 初期化
+	uniqC = make(map[int]struct{})
+	uniqR = make(map[string]struct{})
+
 	ret := "@startuml" + "\n"
 	ret += current.generateComponents() + "\n"
 	ret += current.generateRelations() + "\n"
@@ -144,6 +148,9 @@ func generateRelation(n *Node, out string) string {
 
 // CheckList outputs task check list.
 func (current *Node) CheckList() (string, error) {
+	// 初期化
+	uniqAS = make(map[int]*Node)
+
 	uniqAs(current)
 	sorted := sortComponentList(uniqAS)
 
