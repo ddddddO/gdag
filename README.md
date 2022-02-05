@@ -6,7 +6,7 @@ Useful for progressing tasks.
 
 ⚠It is incompatible with v0.2.0 and earlier versions⚠
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/ddddddO/gdag.svg)](https://pkg.go.dev/github.com/ddddddO/gdag) [![GitHub release](https://img.shields.io/github/release/ddddddO/gdag.svg)](https://github.com/ddddddO/gdag/releases)
+[![Go Reference](https://pkg.go.dev/badge/github.com/ddddddO/gdag.svg)](https://pkg.go.dev/github.com/ddddddO/gdag) [![GitHub release](https://img.shields.io/github/release/ddddddO/gdag.svg)](https://github.com/ddddddO/gdag/releases) [![ci](https://github.com/ddddddO/gdag/actions/workflows/ci.yaml/badge.svg)](https://github.com/ddddddO/gdag/actions/workflows/ci.yaml) [![codecov](https://codecov.io/gh/ddddddO/gdag/branch/master/graph/badge.svg?token=JLGSLF33RH)](https://codecov.io/gh/ddddddO/gdag)
 
 # Demo
 ## PlantUML
