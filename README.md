@@ -37,12 +37,10 @@ func main() {
 	developFeature1.Note("xxが担当")
 	reviewDevelopFeature1 := g.Task("レビュー対応")
 
-	developFeature2 := g.Task("feature2開発")
-	developFeature2.Note("yyが担当")
+	developFeature2 := g.Task("feature2開発").Note("yyが担当")
 	reviewDevelopFeature2 := g.Task("レビュー対応")
 
-	prepareInfra := g.Task("インフラ準備")
-	prepareInfra.Note("zzが担当")
+	prepareInfra := g.Task("インフラ準備").Note("zzが担当")
 
 	test := g.Task("結合テスト")
 	release := g.Task("リリース")
@@ -205,12 +203,10 @@ func main() {
 	developFeature1.N("xxが担当")
 	reviewDevelopFeature1 := g.T("レビュー対応")
 
-	developFeature2 := g.T("feature2開発")
-	developFeature2.N("yyが担当")
+	developFeature2 := g.T("feature2開発").N("yyが担当")
 	reviewDevelopFeature2 := g.T("レビュー対応")
 
-	prepareInfra := g.T("インフラ準備")
-	prepareInfra.N("zzが担当")
+	prepareInfra := g.T("インフラ準備").N("zzが担当")
 
 	test := g.T("結合テスト")
 	release := g.T("リリース")

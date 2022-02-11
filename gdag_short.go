@@ -16,6 +16,6 @@ func (upstream *Node) C(current *Node) *Node {
 }
 
 // N is short name of Note func.
-func (current *Node) N(note string) {
-	current.Note(note)
+func (current *Node) N(note string) *Node {
+	return current.Note(note)
 }

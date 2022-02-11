@@ -70,8 +70,9 @@ func (upstream *Node) Con(current *Node) *Node {
 	return current
 }
 
-func (current *Node) Note(note string) {
+func (current *Node) Note(note string) *Node {
 	current.note = note
+	return current
 }
 
 func (current *Node) isDone() bool {
