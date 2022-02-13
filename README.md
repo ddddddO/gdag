@@ -226,7 +226,7 @@ func main() {
 }
 ```
 
-### ginger grilled pork recipe
+### ginger grilled pork recipe (and more)
 ![dag](_example/dinner/dag.svg)
 
 # Reference

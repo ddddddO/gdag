@@ -15,15 +15,19 @@ func main() {
 	dagSyougayaki, inputTare := syougayaki()
 	// サラダ
 	dagSalad, cutKyabetu := kyabetunosengiri()
+	// だし巻き卵
+	dagDasimaki, bakeTamago := dasimakitamago()
 
 	dag.Con(dagMisosiru)
 	dag.Con(dagSyougayaki)
 	dag.Con(dagSalad)
+	dag.Con(dagDasimaki)
 
 	finish := g.Task("完成")
 	inputMiso.Con(finish)
 	inputTare.Con(finish)
 	cutKyabetu.Con(finish)
+	bakeTamago.Con(finish)
 
 	uml, err := dag.UML()
 	if err != nil {
@@ -91,4 +95,12 @@ func kyabetunosengiri() (*g.Node, *g.Node) {
 	cutKyabetu := g.Task("キャベツを切って盛り付ける")
 	dagSalad.Con(cutKyabetu)
 	return dagSalad, cutKyabetu
+}
+
+func dasimakitamago() (*g.Node, *g.Node) {
+	dagDasimaki := g.DAG("だし巻き卵")
+	mixTamago := g.Task("卵2個とつゆのだしを混ぜる").Note("つゆのだしは4,5滴でいいかも")
+	bakeTamago := g.Task("たまごを焼く")
+	dagDasimaki.Con(mixTamago).Con(bakeTamago)
+	return dagDasimaki, bakeTamago
 }
