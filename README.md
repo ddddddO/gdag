@@ -181,8 +181,8 @@ func main() {
 - [ ] リリース
 - [x] finish
 
-## etc
-### short name version
+## Miscellaneous
+### short name methods
 
 ```go
 package main
