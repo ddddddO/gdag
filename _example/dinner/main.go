@@ -10,6 +10,37 @@ func main() {
 	dag := g.DAG("夜ご飯")
 
 	// みそ汁
+	dagMisosiru, inputMiso := misosiru()
+	// 生姜焼き
+	dagSyougayaki, inputTare := syougayaki()
+	// サラダ
+	dagSalad, cutKyabetu := kyabetunosengiri()
+
+	dag.Con(dagMisosiru)
+	dag.Con(dagSyougayaki)
+	dag.Con(dagSalad)
+
+	finish := g.Task("完成")
+	inputMiso.Con(finish)
+	inputTare.Con(finish)
+	cutKyabetu.Con(finish)
+
+	uml, err := dag.UML()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(uml)
+
+	fmt.Println()
+
+	checklist, err := dag.CheckList()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(checklist)
+}
+
+func misosiru() (*g.Node, *g.Node) {
 	dagMisosiru := g.DAG("みそ汁")
 	boilDasiziru := g.Task("だし汁を沸かす")
 	inputWakame := g.Task("わかめを入れる")
@@ -21,7 +52,10 @@ func main() {
 	boilDasiziru.Con(inputNegi).Con(stopBoil)
 	stopBoil.Con(inputMiso)
 
-	// 生姜焼き
+	return dagMisosiru, inputMiso
+}
+
+func syougayaki() (*g.Node, *g.Node) {
 	dagSyougayaki := g.DAG("生姜焼き")
 
 	dagTare := g.DAG("タレ")
@@ -49,31 +83,12 @@ func main() {
 	dagSyougayaki.Con(dagPork)
 	dagSyougayaki.Con(dagTare)
 
-	// サラダ
+	return dagSyougayaki, inputTare
+}
+
+func kyabetunosengiri() (*g.Node, *g.Node) {
 	dagSalad := g.DAG("キャベツの千切り")
 	cutKyabetu := g.Task("キャベツを切って盛り付ける")
 	dagSalad.Con(cutKyabetu)
-
-	dag.Con(dagMisosiru)
-	dag.Con(dagSyougayaki)
-	dag.Con(dagSalad)
-
-	finish := g.Task("完成")
-	inputMiso.Con(finish)
-	inputTare.Con(finish)
-	cutKyabetu.Con(finish)
-
-	uml, err := dag.UML()
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(uml)
-
-	fmt.Println()
-
-	checklist, err := dag.CheckList()
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(checklist)
+	return dagSalad, cutKyabetu
 }
