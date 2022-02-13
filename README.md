@@ -100,9 +100,8 @@ end note
 @enduml
 ```
 
-2. dag.pu to png
-
-![image](https://github.com/ddddddO/gdag/blob/main/dag.png)
+2. dag.pu to png or svg
+![image](dag.svg)
 
 
 ## CheckList
