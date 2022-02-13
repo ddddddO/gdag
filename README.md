@@ -227,6 +227,8 @@ func main() {
 }
 ```
 
+### ginger grilled pork recipe
+![dag](_example/dinner/dag.svg)
 
 # Reference
 - [about DAG](https://nave-kazu.hatenablog.com/entry/2015/11/30/154810)
