@@ -12,9 +12,10 @@ type Node struct {
 	// の予定だったが、自動で生成する。連番。たぶん他の人がumlいじることはないとも思う。
 	// せめて、連番ではなく、置換しやすいように少し長めのユニークなIDにしたほうがいいかも。テストできそうかも考えて実装した方が良さそう。
 	// かつ、ソータブルな値が必須（ソートして使っているところがあるため）
-	as    int
-	note  string
-	color string // done: #DarkGray
+	as           int // mermaidjsの識別子としても利用する
+	note         string
+	color        string // done: #DarkGray
+	colorMermaid string // done: doneColor
 
 	upstream   []*Node
 	downstream []*Node
@@ -54,6 +55,7 @@ const (
 func Done(nodes ...*Node) {
 	for _, n := range nodes {
 		n.color = colorDone
+		n.colorMermaid = colorDoneMermaid
 	}
 }
 
