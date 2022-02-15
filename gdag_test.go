@@ -417,3 +417,66 @@ func ExampleMultipleCheckLists() {
 	// - [ ] リリース
 	// - [x] finish
 }
+
+func ExampleMermaid() {
+	var dag *g.Node = g.DAG("ゴール(目的)")
+
+	var design *g.Node = g.Task("設計")
+	reviewDesign := g.Task("レビュー対応")
+
+	developFeature1 := g.Task("feature1開発")
+	developFeature1.Note("noop")
+	reviewDevelopFeature1 := g.Task("レビュー対応")
+
+	developFeature2 := g.Task("feature2開発")
+	developFeature2.Note("noop")
+	reviewDevelopFeature2 := g.Task("レビュー対応")
+
+	prepareInfra := g.Task("インフラ準備")
+	prepareInfra.Note("noop")
+
+	test := g.Task("結合テスト")
+	release := g.Task("リリース")
+	finish := g.Task("finish")
+
+	dag.Con(design).Con(reviewDesign).Con(developFeature1).Con(reviewDevelopFeature1).Con(test)
+	reviewDesign.Con(developFeature2).Con(reviewDevelopFeature2).Con(test)
+	reviewDesign.Con(prepareInfra).Con(test)
+	test.Con(release).Con(finish)
+
+	g.Done(design, reviewDesign, developFeature2, finish)
+
+	mermaid, err := dag.Mermaid()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(mermaid)
+	// Output:
+	// graph TD
+	// 	classDef doneColor fill:#868787
+	// 	67("ゴール(目的)")
+	// 	68(["設計"]):::doneColor
+	// 	69(["レビュー対応"]):::doneColor
+	// 	70(["feature1開発"])
+	// 	71(["レビュー対応"])
+	// 	75(["結合テスト"])
+	// 	76(["リリース"])
+	// 	77(["finish"]):::doneColor
+	// 	72(["feature2開発"]):::doneColor
+	// 	73(["レビュー対応"])
+	// 	74(["インフラ準備"])
+	//
+	// 	67 --> 68
+	// 	68 --> 69
+	// 	69 --> 70
+	// 	70 --> 71
+	// 	71 --> 75
+	// 	75 --> 76
+	// 	76 --> 77
+	// 	69 --> 72
+	// 	72 --> 73
+	// 	73 --> 75
+	// 	69 --> 74
+	// 	74 --> 75
+
+}
