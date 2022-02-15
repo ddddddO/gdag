@@ -37,6 +37,14 @@ func main() {
 
 	fmt.Println()
 
+	mermaid, err := dag.Mermaid()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(mermaid)
+
+	fmt.Println()
+
 	checklist, err := dag.CheckList()
 	if err != nil {
 		panic(err)
