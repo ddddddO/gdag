@@ -25,7 +25,7 @@ func (start *Node) Mermaid() (string, error) {
 	mg := newMermaidGenerator()
 
 	ret := "graph TD" + "\n"
-	ret += "	classDef doneColor fill:#868787" + "\n"
+	ret += "classDef doneColor fill:#868787" + "\n"
 	ret += mg.generateComponents(start) + "\n"
 	ret += mg.generateRelations(start) + "\n"
 	return ret, nil
@@ -45,7 +45,7 @@ func (mg *mermaidGenerator) generateComponent(n *Node) string {
 	// TODO: mermaidjs用に修正するかどうか。リファクタは必要
 	switch n.nodeType {
 	case rectangle:
-		s := fmt.Sprintf("	%d(\"%s\")", n.as, n.text)
+		s := fmt.Sprintf("%d(\"%s\")", n.as, n.text)
 		if len(n.colorMermaid) != 0 {
 			s += fmt.Sprintf(":::%s", n.colorMermaid)
 		}
@@ -53,7 +53,7 @@ func (mg *mermaidGenerator) generateComponent(n *Node) string {
 
 		dst += s
 	case usecase:
-		s := fmt.Sprintf("	%d([\"%s\"])", n.as, n.text)
+		s := fmt.Sprintf("%d([\"%s\"])", n.as, n.text)
 		if len(n.colorMermaid) != 0 {
 			s += fmt.Sprintf(":::%s", n.colorMermaid)
 		}
@@ -85,7 +85,7 @@ func (mg *mermaidGenerator) generateRelation(n *Node, out string) string {
 		}
 		mg.uniqueR[key] = struct{}{}
 
-		tmp := fmt.Sprintf("	%s%d\n", r, d.as)
+		tmp := fmt.Sprintf("%s%d\n", r, d.as)
 		out += mg.generateRelation(d, tmp)
 	}
 	return out
