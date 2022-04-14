@@ -1,4 +1,7 @@
 # gdag
+
+![](spider.png)
+
 Easily manage 🕸DAG🕷 with Go.<br>
 DAG is an acronym for Directed Acyclic Graph.<br>
 Output is in PlantUML or Mermaid format.<br>
