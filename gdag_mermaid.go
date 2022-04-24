@@ -4,9 +4,16 @@ import (
 	"fmt"
 )
 
-const (
-	colorDoneMermaid = "doneColor"
-)
+// Mermaid outputs dag mermaidjs.
+func (start *Node) Mermaid() (string, error) {
+	mg := newMermaidGenerator()
+
+	ret := "graph TD" + "\n"
+	ret += "classDef doneColor fill:#868787" + "\n"
+	ret += mg.generateComponents(start) + "\n"
+	ret += mg.generateRelations(start) + "\n"
+	return ret, nil
+}
 
 type mermaidGenerator struct {
 	uniqueC map[int]struct{}
@@ -20,20 +27,13 @@ func newMermaidGenerator() *mermaidGenerator {
 	}
 }
 
-// Mermaid outputs dag mermaidjs.
-func (start *Node) Mermaid() (string, error) {
-	mg := newMermaidGenerator()
-
-	ret := "graph TD" + "\n"
-	ret += "classDef doneColor fill:#868787" + "\n"
-	ret += mg.generateComponents(start) + "\n"
-	ret += mg.generateRelations(start) + "\n"
-	return ret, nil
-}
-
 func (mg *mermaidGenerator) generateComponents(start *Node) string {
 	return mg.generateComponent(start)
 }
+
+const (
+	colorDoneMermaid = "doneColor"
+)
 
 func (mg *mermaidGenerator) generateComponent(n *Node) string {
 	if _, ok := mg.uniqueC[n.as]; ok {
