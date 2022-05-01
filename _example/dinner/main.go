@@ -31,7 +31,8 @@ func main() {
 
 	uml, err := dag.UML()
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		return
 	}
 	fmt.Println(uml)
 
@@ -39,7 +40,8 @@ func main() {
 
 	mermaid, err := dag.Mermaid()
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		return
 	}
 	fmt.Println(mermaid)
 
@@ -47,7 +49,8 @@ func main() {
 
 	checklist, err := dag.CheckList()
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		return
 	}
 	fmt.Println(checklist)
 }

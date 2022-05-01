@@ -34,7 +34,8 @@ func Example() {
 
 	uml, err := dag.UML()
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		return
 	}
 	fmt.Println(uml)
 	// Output:
@@ -106,7 +107,8 @@ func ExampleUML() {
 
 	uml, err := dag.UML()
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		return
 	}
 	fmt.Println(uml)
 	// Output:
@@ -176,7 +178,8 @@ func ExampleShortMethod() {
 
 	uml, err := dag.UML()
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		return
 	}
 	fmt.Println(uml)
 	// Output:
@@ -248,7 +251,8 @@ func ExampleCheckList() {
 
 	checkList, err := dag.CheckList()
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		return
 	}
 	fmt.Println(checkList)
 	// Output:
@@ -295,7 +299,8 @@ func ExampleMultipleUMLs() {
 
 	dagUML, err := dag.UML()
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		return
 	}
 	fmt.Println(dagUML)
 
@@ -303,7 +308,8 @@ func ExampleMultipleUMLs() {
 
 	infraUML, err := prepareInfra.UML()
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		return
 	}
 	fmt.Println(infraUML)
 	// Output:
@@ -390,13 +396,15 @@ func ExampleMultipleCheckLists() {
 
 	dagCheckList, err := dag.CheckList()
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		return
 	}
 	fmt.Println(dagCheckList)
 
 	infraCheckList, err := prepareInfra.CheckList()
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		return
 	}
 	fmt.Println(infraCheckList)
 	// Output:
@@ -448,7 +456,8 @@ func ExampleMermaid() {
 
 	mermaid, err := dag.Mermaid()
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		return
 	}
 	fmt.Println(mermaid)
 	// Output:
