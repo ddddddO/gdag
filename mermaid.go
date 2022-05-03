@@ -31,45 +31,38 @@ func (mg *mermaidGenerator) generateComponents(start *Node) string {
 	return mg.generateComponent(start)
 }
 
-const (
-	colorDoneMermaid = "doneColor"
-)
-
 func (mg *mermaidGenerator) generateComponent(n *Node) string {
-	if _, ok := mg.uniqueC[n.as]; ok {
+	if _, ok := mg.uniqueC[n.index]; ok {
 		return ""
 	}
-	mg.uniqueC[n.as] = struct{}{}
+	mg.uniqueC[n.index] = struct{}{}
 
-	dst := ""
-	// TODO: mermaidjs用に修正するかどうか。リファクタは必要
+	ret := ""
+	// TODO: mermaid用に修正するかどうか。リファクタは必要
 	switch n.nodeType {
 	case rectangle:
-		s := fmt.Sprintf("%d(\"%s\")", n.as, n.text)
+		s := fmt.Sprintf("%d(\"%s\")", n.index, n.text)
 		if len(n.colorMermaid) != 0 {
 			s += fmt.Sprintf(":::%s", n.colorMermaid)
 		}
 		s += "\n"
-
-		dst += s
+		ret += s
 	case usecase:
-		s := fmt.Sprintf("%d([\"%s\"])", n.as, n.text)
+		s := fmt.Sprintf("%d([\"%s\"])", n.index, n.text)
 		if len(n.colorMermaid) != 0 {
 			s += fmt.Sprintf(":::%s", n.colorMermaid)
 		}
 		s += "\n"
-
-		dst += s
+		ret += s
 	}
 	if len(n.note) != 0 {
 		// noop
 	}
 
 	for _, d := range n.downstream {
-		dst += mg.generateComponent(d)
+		ret += mg.generateComponent(d)
 	}
-
-	return dst
+	return ret
 }
 
 func (mg *mermaidGenerator) generateRelations(start *Node) string {
@@ -77,16 +70,17 @@ func (mg *mermaidGenerator) generateRelations(start *Node) string {
 }
 
 func (mg *mermaidGenerator) generateRelation(n *Node, out string) string {
-	r := fmt.Sprintf("%d --> ", n.as)
+	r := fmt.Sprintf("%d --> ", n.index)
+	ret := out
 	for _, d := range n.downstream {
-		key := fmt.Sprintf("%d-%d", n.as, d.as)
+		key := fmt.Sprintf("%d-%d", n.index, d.index)
 		if _, ok := mg.uniqueR[key]; ok {
 			continue
 		}
 		mg.uniqueR[key] = struct{}{}
 
-		tmp := fmt.Sprintf("%s%d\n", r, d.as)
-		out += mg.generateRelation(d, tmp)
+		tmp := fmt.Sprintf("%s%d\n", r, d.index)
+		ret += mg.generateRelation(d, tmp)
 	}
-	return out
+	return ret
 }

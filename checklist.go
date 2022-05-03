@@ -39,10 +39,10 @@ func newCheckListGenerator() *checkListGenerator {
 }
 
 func (clg *checkListGenerator) makeUnique(n *Node) {
-	if _, ok := clg.unique[n.as]; ok {
+	if _, ok := clg.unique[n.index]; ok {
 		return
 	}
-	clg.unique[n.as] = n
+	clg.unique[n.index] = n
 
 	for _, d := range n.downstream {
 		clg.makeUnique(d)
@@ -61,6 +61,5 @@ func (clg *checkListGenerator) sortComponentList() []*Node {
 		v := clg.unique[k]
 		sorted = append(sorted, v)
 	}
-
 	return sorted
 }

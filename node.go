@@ -1,18 +1,13 @@
 package gdag
 
 type Node struct {
-	nodeType nodeType
-	text     string
-	// plantumlでの識別子。自動で生成したいけど、例えばa, b, ...とかにしちゃうと、他の人がplantumlを編集するとき辛くなる。あと、識別子なので重複する場合はエラーとする。
-	// の予定だったが、自動で生成する。連番。たぶん他の人がumlいじることはないとも思う。
-	// せめて、連番ではなく、置換しやすいように少し長めのユニークなIDにしたほうがいいかも。テストできそうかも考えて実装した方が良さそう。
-	// かつ、ソータブルな値が必須（ソートして使っているところがあるため）
-	as           int // mermaidjsの識別子としても利用する
+	nodeType     nodeType
+	index        int // mermaidの識別子としても利用する
+	text         string
 	note         string
 	color        string // done: #DarkGray
 	colorMermaid string // done: doneColor
 
-	upstream   []*Node
 	downstream []*Node
 }
 
@@ -39,12 +34,13 @@ func newNode(nodeType nodeType, text string) *Node {
 	return &Node{
 		nodeType: nodeType,
 		text:     text,
-		as:       nodeIdx,
+		index:    nodeIdx,
 	}
 }
 
 const (
-	colorDone = "#DarkGray"
+	colorDone        = "#DarkGray"
+	colorDoneMermaid = "doneColor"
 )
 
 func Done(nodes ...*Node) {
@@ -56,14 +52,12 @@ func Done(nodes ...*Node) {
 
 func (upstream *Node) Con(current *Node) *Node {
 	for _, d := range upstream.downstream {
-		if current.as == d.as {
+		if current.index == d.index {
 			return d
 		}
 	}
 
 	upstream.downstream = append(upstream.downstream, current)
-	current.upstream = append(current.upstream, upstream)
-
 	return current
 }
 
