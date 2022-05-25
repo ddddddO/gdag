@@ -118,6 +118,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	g "github.com/ddddddO/gdag"
 )
@@ -152,8 +153,8 @@ func main() {
 
 	mermaid, err := dag.Mermaid()
 	if err != nil {
-		fmt.Println(err)
-		return
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
 	}
 	fmt.Println(mermaid)
 }
@@ -230,6 +231,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	g "github.com/ddddddO/gdag"
 )
@@ -264,8 +266,8 @@ func main() {
 
 	checkList, err := dag.CheckList()
 	if err != nil {
-		fmt.Println(err)
-		return
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
 	}
 	fmt.Println(checkList)
 }
@@ -306,6 +308,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	g "github.com/ddddddO/gdag"
 )
@@ -338,8 +341,8 @@ func main() {
 
 	uml, err := dag.UML()
 	if err != nil {
-		fmt.Println(err)
-		return
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
 	}
 	fmt.Println(uml)
 }
