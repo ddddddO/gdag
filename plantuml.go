@@ -31,27 +31,27 @@ func (ug *umlGenerator) generateComponents(start *Node) string {
 	return ug.generateComponent(start)
 }
 
-func (ug *umlGenerator) generateComponent(n *Node) string {
-	if _, ok := ug.uniqueC[n.index]; ok {
+func (ug *umlGenerator) generateComponent(node *Node) string {
+	if _, ok := ug.uniqueC[node.index]; ok {
 		return ""
 	}
-	ug.uniqueC[n.index] = struct{}{}
+	ug.uniqueC[node.index] = struct{}{}
 
 	ret := ""
-	switch n.nodeType {
+	switch node.nodeType {
 	case rectangle, usecase:
-		s := fmt.Sprintf("%s \"%s\" as %d", n.nodeType, n.text, n.index)
-		if len(n.color) != 0 {
-			s += fmt.Sprintf(" %s", n.color)
+		s := fmt.Sprintf("%s \"%s\" as %d", node.nodeType, node.text, node.index)
+		if len(node.color) != 0 {
+			s += fmt.Sprintf(" %s", node.color)
 		}
 		s += "\n"
 		ret += s
 	}
-	if len(n.note) != 0 {
-		ret += fmt.Sprintf("note left\n%s\nend note\n", n.note)
+	if len(node.note) != 0 {
+		ret += fmt.Sprintf("note left\n%s\nend note\n", node.note)
 	}
 
-	for _, d := range n.downstream {
+	for _, d := range node.downstream {
 		ret += ug.generateComponent(d)
 	}
 	return ret
@@ -61,17 +61,17 @@ func (ug *umlGenerator) generateRelations(start *Node) string {
 	return ug.generateRelation(start, "")
 }
 
-func (ug *umlGenerator) generateRelation(n *Node, out string) string {
-	r := fmt.Sprintf("%d --> ", n.index)
+func (ug *umlGenerator) generateRelation(node *Node, out string) string {
+	edge := fmt.Sprintf("%d --> ", node.index)
 	ret := out
-	for _, d := range n.downstream {
-		key := fmt.Sprintf("%d-%d", n.index, d.index)
+	for _, d := range node.downstream {
+		key := fmt.Sprintf("%d-%d", node.index, d.index)
 		if _, ok := ug.uniqueR[key]; ok {
 			continue
 		}
 		ug.uniqueR[key] = struct{}{}
 
-		tmp := fmt.Sprintf("%s%d\n", r, d.index)
+		tmp := fmt.Sprintf("%s%d\n", edge, d.index)
 		ret += ug.generateRelation(d, tmp)
 	}
 	return ret

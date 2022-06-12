@@ -31,35 +31,35 @@ func (mg *mermaidGenerator) generateComponents(start *Node) string {
 	return mg.generateComponent(start)
 }
 
-func (mg *mermaidGenerator) generateComponent(n *Node) string {
-	if _, ok := mg.uniqueC[n.index]; ok {
+func (mg *mermaidGenerator) generateComponent(node *Node) string {
+	if _, ok := mg.uniqueC[node.index]; ok {
 		return ""
 	}
-	mg.uniqueC[n.index] = struct{}{}
+	mg.uniqueC[node.index] = struct{}{}
 
 	ret := ""
 	// TODO: mermaid用に修正するかどうか。リファクタは必要
-	switch n.nodeType {
+	switch node.nodeType {
 	case rectangle:
-		s := fmt.Sprintf("%d(\"%s\")", n.index, n.text)
-		if len(n.colorMermaid) != 0 {
-			s += fmt.Sprintf(":::%s", n.colorMermaid)
+		s := fmt.Sprintf("%d(\"%s\")", node.index, node.text)
+		if len(node.colorMermaid) != 0 {
+			s += fmt.Sprintf(":::%s", node.colorMermaid)
 		}
 		s += "\n"
 		ret += s
 	case usecase:
-		s := fmt.Sprintf("%d([\"%s\"])", n.index, n.text)
-		if len(n.colorMermaid) != 0 {
-			s += fmt.Sprintf(":::%s", n.colorMermaid)
+		s := fmt.Sprintf("%d([\"%s\"])", node.index, node.text)
+		if len(node.colorMermaid) != 0 {
+			s += fmt.Sprintf(":::%s", node.colorMermaid)
 		}
 		s += "\n"
 		ret += s
 	}
-	if len(n.note) != 0 {
+	if len(node.note) != 0 {
 		// noop
 	}
 
-	for _, d := range n.downstream {
+	for _, d := range node.downstream {
 		ret += mg.generateComponent(d)
 	}
 	return ret
@@ -69,17 +69,17 @@ func (mg *mermaidGenerator) generateRelations(start *Node) string {
 	return mg.generateRelation(start, "")
 }
 
-func (mg *mermaidGenerator) generateRelation(n *Node, out string) string {
-	r := fmt.Sprintf("%d --> ", n.index)
+func (mg *mermaidGenerator) generateRelation(node *Node, out string) string {
+	edge := fmt.Sprintf("%d --> ", node.index)
 	ret := out
-	for _, d := range n.downstream {
-		key := fmt.Sprintf("%d-%d", n.index, d.index)
+	for _, d := range node.downstream {
+		key := fmt.Sprintf("%d-%d", node.index, d.index)
 		if _, ok := mg.uniqueR[key]; ok {
 			continue
 		}
 		mg.uniqueR[key] = struct{}{}
 
-		tmp := fmt.Sprintf("%s%d\n", r, d.index)
+		tmp := fmt.Sprintf("%s%d\n", edge, d.index)
 		ret += mg.generateRelation(d, tmp)
 	}
 	return ret

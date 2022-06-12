@@ -38,13 +38,13 @@ func newCheckListGenerator() *checkListGenerator {
 	}
 }
 
-func (clg *checkListGenerator) makeUnique(n *Node) {
-	if _, ok := clg.unique[n.index]; ok {
+func (clg *checkListGenerator) makeUnique(node *Node) {
+	if _, ok := clg.unique[node.index]; ok {
 		return
 	}
-	clg.unique[n.index] = n
+	clg.unique[node.index] = node
 
-	for _, d := range n.downstream {
+	for _, d := range node.downstream {
 		clg.makeUnique(d)
 	}
 }
