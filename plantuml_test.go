@@ -80,6 +80,7 @@ func ExampleNode_UML() {
 	// @enduml
 }
 
+// nolint:govet
 func ExampleNode_UML_ShortMethod() {
 	var dag *g.Node = g.DAG("ゴール(目的)")
 
@@ -151,6 +152,7 @@ func ExampleNode_UML_ShortMethod() {
 	// @enduml
 }
 
+// nolint:govet
 func ExampleNode_UML_Multiple() {
 	var dag *g.Node = g.DAG("ゴール(目的)")
 

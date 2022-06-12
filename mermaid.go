@@ -55,6 +55,7 @@ func (mg *mermaidGenerator) generateComponent(node *Node) string {
 		s += "\n"
 		ret += s
 	}
+	// nolint:staticcheck
 	if len(node.note) != 0 {
 		// noop
 	}

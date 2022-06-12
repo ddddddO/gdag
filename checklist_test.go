@@ -55,6 +55,7 @@ func ExampleNode_CheckList() {
 	// - [x] finish
 }
 
+// nolint:govet
 func ExampleNode_CheckList_Multiple() {
 	dag := g.DAG("ゴール(目的)")
 
