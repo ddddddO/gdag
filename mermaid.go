@@ -16,14 +16,14 @@ func (start *Node) Mermaid() (string, error) {
 }
 
 type mermaidGenerator struct {
-	uniqueC map[int]struct{}
-	uniqueR map[string]struct{}
+	uniqueComponents map[int]struct{}
+	uniqueRelations  map[string]struct{}
 }
 
 func newMermaidGenerator() *mermaidGenerator {
 	return &mermaidGenerator{
-		uniqueC: map[int]struct{}{},
-		uniqueR: map[string]struct{}{},
+		uniqueComponents: map[int]struct{}{},
+		uniqueRelations:  map[string]struct{}{},
 	}
 }
 
@@ -32,11 +32,19 @@ func (mg *mermaidGenerator) generateComponents(start *Node) string {
 }
 
 func (mg *mermaidGenerator) generateComponent(node *Node) string {
-	if _, ok := mg.uniqueC[node.index]; ok {
+	if _, ok := mg.uniqueComponents[node.index]; ok {
 		return ""
 	}
-	mg.uniqueC[node.index] = struct{}{}
+	mg.uniqueComponents[node.index] = struct{}{}
 
+	ret := (*mermaidGenerator)(nil).renderComponent(node)
+	for _, d := range node.downstream {
+		ret += mg.generateComponent(d)
+	}
+	return ret
+}
+
+func (*mermaidGenerator) renderComponent(node *Node) string {
 	ret := ""
 	// TODO: mermaid用に修正するかどうか。リファクタは必要
 	switch node.nodeType {
@@ -59,10 +67,6 @@ func (mg *mermaidGenerator) generateComponent(node *Node) string {
 	if len(node.note) != 0 {
 		// noop
 	}
-
-	for _, d := range node.downstream {
-		ret += mg.generateComponent(d)
-	}
 	return ret
 }
 
@@ -75,10 +79,10 @@ func (mg *mermaidGenerator) generateRelation(node *Node, out string) string {
 	ret := out
 	for _, d := range node.downstream {
 		key := fmt.Sprintf("%d-%d", node.index, d.index)
-		if _, ok := mg.uniqueR[key]; ok {
+		if _, ok := mg.uniqueRelations[key]; ok {
 			continue
 		}
-		mg.uniqueR[key] = struct{}{}
+		mg.uniqueRelations[key] = struct{}{}
 
 		tmp := fmt.Sprintf("%s%d\n", edge, d.index)
 		ret += mg.generateRelation(d, tmp)

@@ -10,20 +10,11 @@ func (start *Node) CheckList() (string, error) {
 	clg := newCheckListGenerator()
 
 	clg.makeUnique(start)
-	sorted := clg.sortComponentList()
+	sorted := clg.sortComponents()
 
 	ret := ""
 	for _, node := range sorted {
-		if node.isDAG() {
-			ret += fmt.Sprintf("### %s\n", node.text)
-			continue
-		}
-
-		if node.isDone() {
-			ret += fmt.Sprintf("- [x] %s\n", node.text)
-		} else {
-			ret += fmt.Sprintf("- [ ] %s\n", node.text)
-		}
+		ret += (*checkListGenerator)(nil).renderRow(node)
 	}
 	return ret, nil
 }
@@ -49,7 +40,7 @@ func (clg *checkListGenerator) makeUnique(node *Node) {
 	}
 }
 
-func (clg *checkListGenerator) sortComponentList() []*Node {
+func (clg *checkListGenerator) sortComponents() []*Node {
 	keys := make([]int, 0, len(clg.unique))
 	for k := range clg.unique {
 		keys = append(keys, k)
@@ -62,4 +53,16 @@ func (clg *checkListGenerator) sortComponentList() []*Node {
 		sorted = append(sorted, v)
 	}
 	return sorted
+}
+
+func (*checkListGenerator) renderRow(node *Node) string {
+	if node.isDAG() {
+		return fmt.Sprintf("### %s\n", node.text)
+	}
+
+	if node.isDone() {
+		return fmt.Sprintf("- [x] %s\n", node.text)
+	} else {
+		return fmt.Sprintf("- [ ] %s\n", node.text)
+	}
 }

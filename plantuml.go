@@ -16,14 +16,14 @@ func (start *Node) UML() (string, error) {
 }
 
 type umlGenerator struct {
-	uniqueC map[int]struct{}
-	uniqueR map[string]struct{}
+	uniqueComponents map[int]struct{}
+	uniqueRelations  map[string]struct{}
 }
 
 func newUMLGenerator() *umlGenerator {
 	return &umlGenerator{
-		uniqueC: map[int]struct{}{},
-		uniqueR: map[string]struct{}{},
+		uniqueComponents: map[int]struct{}{},
+		uniqueRelations:  map[string]struct{}{},
 	}
 }
 
@@ -32,11 +32,19 @@ func (ug *umlGenerator) generateComponents(start *Node) string {
 }
 
 func (ug *umlGenerator) generateComponent(node *Node) string {
-	if _, ok := ug.uniqueC[node.index]; ok {
+	if _, ok := ug.uniqueComponents[node.index]; ok {
 		return ""
 	}
-	ug.uniqueC[node.index] = struct{}{}
+	ug.uniqueComponents[node.index] = struct{}{}
 
+	ret := (*umlGenerator)(nil).renderComponent(node)
+	for _, d := range node.downstream {
+		ret += ug.generateComponent(d)
+	}
+	return ret
+}
+
+func (*umlGenerator) renderComponent(node *Node) string {
 	ret := ""
 	switch node.nodeType {
 	case rectangle, usecase:
@@ -50,10 +58,6 @@ func (ug *umlGenerator) generateComponent(node *Node) string {
 	if len(node.note) != 0 {
 		ret += fmt.Sprintf("note left\n%s\nend note\n", node.note)
 	}
-
-	for _, d := range node.downstream {
-		ret += ug.generateComponent(d)
-	}
 	return ret
 }
 
@@ -66,10 +70,10 @@ func (ug *umlGenerator) generateRelation(node *Node, out string) string {
 	ret := out
 	for _, d := range node.downstream {
 		key := fmt.Sprintf("%d-%d", node.index, d.index)
-		if _, ok := ug.uniqueR[key]; ok {
+		if _, ok := ug.uniqueRelations[key]; ok {
 			continue
 		}
-		ug.uniqueR[key] = struct{}{}
+		ug.uniqueRelations[key] = struct{}{}
 
 		tmp := fmt.Sprintf("%s%d\n", edge, d.index)
 		ret += ug.generateRelation(d, tmp)
