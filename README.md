@@ -5,7 +5,7 @@
 Easily manage 🕸DAG🕷 with Go.<br>
 DAG is an acronym for Directed Acyclic Graph.<br>
 Output is in PlantUML or Mermaid format.<br>
-Useful for progressing tasks.
+Useful for progressing tasks, designing components, etc...
 
 ⚠It is incompatible with v0.2.0 and earlier versions⚠
 
@@ -348,8 +348,13 @@ func main() {
 }
 ```
 
-### ginger grilled pork recipe (and more)
+### Ginger grilled pork recipe (and more)
 ![dag](_example/dinner/dag.svg)
+
+### Component design
+![dag](_example/component_design/components.svg)
+
+- 「Clean Architecture 達人に学ぶソフトウェアの構造と設計」P131 図14-4 より
 
 # Reference
 - [about DAG](https://nave-kazu.hatenablog.com/entry/2015/11/30/154810)

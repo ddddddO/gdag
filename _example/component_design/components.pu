@@ -1,0 +1,27 @@
+@startuml
+rectangle "Main" as 1
+usecase "View" as 2
+usecase "Presenters" as 4
+usecase "Interactors" as 5
+usecase "Entities" as 8
+usecase "Permissions" as 9
+usecase "Database" as 7
+usecase "Controllers" as 3
+usecase "Authorizer" as 6
+
+1 --> 2
+2 --> 4
+4 --> 5
+5 --> 8
+8 --> 9
+1 --> 5
+1 --> 7
+7 --> 5
+7 --> 8
+1 --> 3
+3 --> 5
+1 --> 6
+6 --> 5
+6 --> 9
+
+@enduml
