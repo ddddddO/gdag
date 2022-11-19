@@ -13,7 +13,7 @@ Useful for progressing tasks, designing components, etc...
 
 # Installation
 ```console
-go get github.com/ddddddO/gdag
+$ go get github.com/ddddddO/gdag
 ```
 
 # Demo
