@@ -1,0 +1,33 @@
+@startuml
+rectangle "システム障害対応フロー" as 1
+usecase "イベントの確認" as 2
+note left
+システムエラーやユーザーからの申告。
+この時点ではシステム障害ではない。
+end note
+usecase "検知・事象の確認" as 3
+note left
+システムが本来の機能を果たせていない
+可能性を検知した段階で障害対応を開始。
+end note
+usecase "業務影響調査" as 4
+usecase "復旧対応" as 6
+usecase "恒久対応" as 7
+usecase "障害分析" as 8
+usecase "終了" as 10
+usecase "再発防止策" as 9
+usecase "原因調査" as 5
+
+1 --> 2
+2 --> 3
+3 --> 4
+4 --> 6
+6 --> 7
+7 --> 8
+8 --> 10
+7 --> 9
+9 --> 10
+3 --> 5
+5 --> 6
+
+@enduml

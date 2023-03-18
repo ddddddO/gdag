@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="712px" preserveAspectRatio="none" style="width:529px;height:712px;background:#FFFFFF;" version="1.1" viewBox="0 0 529 712" width="529px" zoomAndPan="magnify"><defs/><g><!--MD5=[13c7745981a6abb6004f7738a8ca5078]
+entity 1--><g id="elem_1"><rect fill="#F1F1F1" height="37.6094" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="174" x="301" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="154" x="311" y="31.5332">システム障害対応フロー</text></g><g id="elem_2"><ellipse cx="388.2427" cy="126.6485" fill="#F1F1F1" rx="73.7427" ry="17.1485" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="98" x="336.2427" y="131.1651">イベントの確認</text></g><g id="elem_GMN4"><path d="M24.5,105 L24.5,147.7031 A0,0 0 0 0 24.5,147.7031 L279.5,147.7031 A0,0 0 0 0 279.5,147.7031 L279.5,130.5 L314.38,126.5 L279.5,122.5 L279.5,115 L269.5,105 L24.5,105 A0,0 0 0 0 24.5,105 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M269.5,105 L269.5,115 L279.5,115 L269.5,105 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="234" x="30.5" y="123.4951">システムエラーやユーザーからの申告。</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="221" x="30.5" y="139.8467">この時点ではシステム障害ではない。</text></g><g id="elem_3"><ellipse cx="388.0785" cy="229.7157" fill="#F1F1F1" rx="79.0785" ry="18.2157" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="112" x="330.6751" y="233.8395">検知・事象の確認</text></g><g id="elem_GMN8"><path d="M6,208 L6,250.7031 A0,0 0 0 0 6,250.7031 L274,250.7031 A0,0 0 0 0 274,250.7031 L274,233.5 L308.85,229.5 L274,225.5 L274,218 L264,208 L6,208 A0,0 0 0 0 6,208 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M264,208 L264,218 L274,218 L264,208 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="234" x="12" y="226.4951">システムが本来の機能を果たせていない</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="247" x="12" y="242.8467">可能性を検知した段階で障害対応を開始。</text></g><g id="elem_4"><ellipse cx="309.7688" cy="327.1538" fill="#F1F1F1" rx="68.7688" ry="16.1538" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="84" x="264.7688" y="331.6704">業務影響調査</text></g><g id="elem_6"><ellipse cx="387.8032" cy="418.5087" fill="#F1F1F1" rx="51.3032" ry="15.5087" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="56" x="356.8032" y="423.0253">復旧対応</text></g><g id="elem_7"><ellipse cx="387.8032" cy="509.5087" fill="#F1F1F1" rx="51.3032" ry="15.5087" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="56" x="356.8032" y="514.0253">恒久対応</text></g><g id="elem_8"><ellipse cx="313.8032" cy="600.5087" fill="#F1F1F1" rx="51.3032" ry="15.5087" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="56" x="282.8032" y="605.0253">障害分析</text></g><g id="elem_10"><ellipse cx="387.7843" cy="691.4517" fill="#F1F1F1" rx="31.2843" ry="15.4517" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="28" x="373.7843" y="695.1802">終了</text></g><g id="elem_9"><ellipse cx="462.1463" cy="600.5942" fill="#F1F1F1" rx="61.6463" ry="15.5942" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="70" x="424.1463" y="605.1108">再発防止策</text></g><g id="elem_5"><ellipse cx="465.8032" cy="327.0087" fill="#F1F1F1" rx="51.3032" ry="15.5087" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="56" x="434.8032" y="331.5253">原因調査</text></g><!--MD5=[0ba0d8a0fd0e641c23f69743a446dfe6]
+link 1 to 2--><g id="link_1_2"><path d="M388,45.07 C388,61.68 388,86.32 388,103.95 " fill="none" id="1-to-2" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="388,109.18,392,100.18,388,104.18,384,100.18,388,109.18" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[eeb69082328d10abd3b14fdeede0d8a3]
+link 2 to 3--><g id="link_2_3"><path d="M388,143.73 C388,160.65 388,187.29 388,206.19 " fill="none" id="2-to-3" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="388,211.3,392,202.3,388,206.3,384,202.3,388,211.3" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[b1f22f0c97e7f2b556a5a2d67c42ac53]
+link 3 to 4--><g id="link_3_4"><path d="M374.06,247.57 C360.48,264.19 339.89,289.41 325.74,306.73 " fill="none" id="3-to-4" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="322.28,310.96,331.0678,306.5132,325.44,307.0851,324.868,301.4573,322.28,310.96" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[f13c3ab577a688343a149026a232f91b]
+link 4 to 6--><g id="link_4_6"><path d="M322.88,342.78 C336.36,358.25 357.55,382.56 372.08,399.23 " fill="none" id="4-to-6" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="375.62,403.29,372.724,393.8765,372.3356,399.52,366.6921,399.1316,375.62,403.29" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[2dfa168d6698efd82f568a8036f37f42]
+link 6 to 7--><g id="link_6_7"><path d="M388,434.2 C388,449.01 388,471.98 388,488.46 " fill="none" id="6-to-7" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="388,493.78,392,484.78,388,488.78,384,484.78,388,493.78" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[5ca979b543d038a4b12f05f8f6f2c83d]
+link 7 to 8--><g id="link_7_8"><path d="M376.11,524.8 C363.38,540.11 343.14,564.45 329.25,581.16 " fill="none" id="7-to-8" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="325.86,585.24,334.693,580.8835,329.0595,581.3977,328.5453,575.7643,325.86,585.24" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[66e7b6c3ac5c4610258b1d7c60328b7a]
+link 8 to 10--><g id="link_8_10"><path d="M325.89,615.8 C338.77,631.29 359.34,656.03 373.24,672.75 " fill="none" id="8-to-10" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="376.63,676.82,373.9828,667.3336,373.446,672.9649,367.8146,672.428,376.63,676.82" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[f702a6f74dbfc96c437701ffeb2365dd]
+link 7 to 9--><g id="link_7_9"><path d="M399.89,524.8 C412.62,540.11 432.86,564.45 446.75,581.16 " fill="none" id="7-to-9" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="450.14,585.24,447.4547,575.7643,446.9405,581.3977,441.307,580.8835,450.14,585.24" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[d626a4137f042c9ed96693ba98ea08de]
+link 9 to 10--><g id="link_9_10"><path d="M450.11,615.8 C437.23,631.29 416.66,656.03 402.76,672.75 " fill="none" id="9-to-10" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="399.37,676.82,408.1854,672.428,402.554,672.9649,402.0172,667.3336,399.37,676.82" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[c24e363b82b23e873c94edca50a9731f]
+link 3 to 5--><g id="link_3_5"><path d="M401.94,247.57 C415.76,264.49 436.85,290.31 451.02,307.66 " fill="none" id="3-to-5" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="454.46,311.87,451.851,302.373,451.2915,308.0021,445.6624,307.4426,454.46,311.87" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[deed8cab30c10dbe2727e65517d240f0]
+link 5 to 6--><g id="link_5_6"><path d="M453.47,342.38 C440.05,357.78 418.72,382.26 404.07,399.06 " fill="none" id="5-to-6" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="400.5,403.16,409.4279,399.0016,403.7844,399.39,403.396,393.7465,400.5,403.16" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[c6d06b2a2e516a04599dd866610e9bc1]
+@startuml
+rectangle "システム障害対応フロー" as 1
+usecase "イベントの確認" as 2
+note left
+システムエラーやユーザーからの申告。
+この時点ではシステム障害ではない。
+end note
+usecase "検知・事象の確認" as 3
+note left
+システムが本来の機能を果たせていない
+可能性を検知した段階で障害対応を開始。
+end note
+usecase "業務影響調査" as 4
+usecase "復旧対応" as 6
+usecase "恒久対応" as 7
+usecase "障害分析" as 8
+usecase "終了" as 10
+usecase "再発防止策" as 9
+usecase "原因調査" as 5
+
+1 - -> 2
+2 - -> 3
+3 - -> 4
+4 - -> 6
+6 - -> 7
+7 - -> 8
+8 - -> 10
+7 - -> 9
+9 - -> 10
+3 - -> 5
+5 - -> 6
+
+@enduml
+
+PlantUML version 1.2022.7(Tue Aug 23 02:01:30 JST 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: MS932
+Language: ja
+Country: JP
+--></g></svg>
