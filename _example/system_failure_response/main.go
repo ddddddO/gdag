@@ -21,16 +21,18 @@ func main() {
 
 	flow.Con(checkEvent).Con(checkMatter)
 
-	checkMatter.Fanout(checkBusinessImpact, checkCause).Con(recoveryResponse)
+	checkMatter.Fanout(checkBusinessImpact, checkCause).Con(recoveryResponse).Con(permanentResponse)
 	// Fanout method is same below.
 	// checkMatter.Con(checkBusinessImpact).Con(recoveryResponse)
 	// checkMatter.Con(checkCause).Con(recoveryResponse)
+	// recoveryResponse.Con(permanentResponse)
 
-	recoveryResponse.Con(permanentResponse)
-	permanentResponse.Con(faultAnalysis)
-	permanentResponse.Con(recurrencePreventionMeasures)
-	faultAnalysis.Con(end)
-	recurrencePreventionMeasures.Con(end)
+	permanentResponse.Fanout(faultAnalysis, recurrencePreventionMeasures).Con(end)
+	// Fanout method is same below.
+	// permanentResponse.Con(faultAnalysis)
+	// permanentResponse.Con(recurrencePreventionMeasures)
+	// faultAnalysis.Con(end)
+	// recurrencePreventionMeasures.Con(end)
 
 	uml, err := flow.UML()
 	if err != nil {
