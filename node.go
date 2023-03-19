@@ -8,14 +8,16 @@ type Node struct {
 	color        string // done: #DarkGray
 	colorMermaid string // done: doneColor
 
+	parent     *Node // TODO: 現状、中間ノードのためにおいてる
 	downstream []*Node
 }
 
 type nodeType string
 
 const (
-	rectangle = nodeType("rectangle")
-	usecase   = nodeType("usecase")
+	intermediate = nodeType("intermediate node")
+	rectangle    = nodeType("rectangle")
+	usecase      = nodeType("usecase")
 )
 
 func DAG(text string) *Node {
@@ -51,6 +53,13 @@ func Done(nodes ...*Node) {
 }
 
 func (upstream *Node) Con(current *Node) *Node {
+	if upstream.nodeType == intermediate {
+		for i := range upstream.downstream {
+			upstream.downstream[i].downstream = append(upstream.downstream[i].downstream, current)
+		}
+		return current
+	}
+
 	for _, d := range upstream.downstream {
 		if current.index == d.index {
 			return d
@@ -59,6 +68,16 @@ func (upstream *Node) Con(current *Node) *Node {
 
 	upstream.downstream = append(upstream.downstream, current)
 	return current
+}
+
+func (upstream *Node) Fanout(nodes ...*Node) *Node {
+	intermediateNode := newNode(intermediate, "not output")
+	for i := range nodes {
+		intermediateNode.downstream = append(intermediateNode.downstream, nodes[i])
+	}
+	intermediateNode.parent = upstream
+	upstream.downstream = append(upstream.downstream, intermediateNode)
+	return intermediateNode
 }
 
 func (current *Node) Note(note string) *Node {
