@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="414px" preserveAspectRatio="none" style="width:295px;height:414px;background:#FFFFFF;" version="1.1" viewBox="0 0 295 414" width="295px" zoomAndPan="magnify"><defs/><g><!--MD5=[13c7745981a6abb6004f7738a8ca5078]
+entity 1--><g id="elem_1"><rect fill="#F1F1F1" height="37.6094" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="105" x="95" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85" x="105" y="31.5332">Fanin/Fanout</text></g><g id="elem_2"><ellipse cx="41.5269" cy="120.4517" fill="#F1F1F1" rx="35.5269" ry="15.4517" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="34" x="24.5269" y="124.1802">task1</text></g><g id="elem_5"><ellipse cx="147.5269" cy="211.4517" fill="#F1F1F1" rx="35.5269" ry="15.4517" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="34" x="130.5269" y="215.1802">task4</text></g><g id="elem_7"><ellipse cx="41.5269" cy="302.4517" fill="#F1F1F1" rx="35.5269" ry="15.4517" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="34" x="24.5269" y="306.1802">task5</text></g><g id="elem_11"><ellipse cx="147.4558" cy="393.4517" fill="#F1F1F1" rx="28.4558" ry="15.4517" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="24" x="135.4558" y="397.1802">end</text></g><g id="elem_8"><ellipse cx="147.5269" cy="302.4517" fill="#F1F1F1" rx="35.5269" ry="15.4517" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="34" x="130.5269" y="306.1802">task6</text></g><g id="elem_9"><ellipse cx="253.5269" cy="302.4517" fill="#F1F1F1" rx="35.5269" ry="15.4517" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="34" x="236.5269" y="306.1802">task7</text></g><g id="elem_3"><ellipse cx="147.5269" cy="120.4517" fill="#F1F1F1" rx="35.5269" ry="15.4517" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="34" x="130.5269" y="124.1802">task2</text></g><g id="elem_4"><ellipse cx="253.5269" cy="120.4517" fill="#F1F1F1" rx="35.5269" ry="15.4517" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="34" x="236.5269" y="124.1802">task3</text></g><!--MD5=[0ba0d8a0fd0e641c23f69743a446dfe6]
+link 1 to 2--><g id="link_1_2"><path d="M126.81,45.05 C107.65,61.77 79.39,86.44 60.72,102.73 " fill="none" id="1-to-2" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="56.65,106.28,66.0635,103.384,60.42,102.9956,60.8084,97.3521,56.65,106.28" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[4e74f4bf4b09d37138dfb3a42c5ccc13]
+link 2 to 5--><g id="link_2_5"><path d="M57.14,134.63 C75.93,150.41 107.46,176.88 127.87,194.02 " fill="none" id="2-to-5" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="131.8,197.31,127.4791,188.4596,127.9706,194.095,122.3352,194.5866,131.8,197.31" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[5ec834373d0f90319a7b1d0acd51ee02]
+link 5 to 7--><g id="link_5_7"><path d="M131.86,225.63 C113.07,241.41 81.54,267.88 61.13,285.02 " fill="none" id="5-to-7" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="57.2,288.31,66.6648,285.5866,61.0294,285.095,61.5209,279.4596,57.2,288.31" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[76ca3bac51d5488e1447e433de00ca1d]
+link 7 to 11--><g id="link_7_11"><path d="M57.14,316.63 C76.25,332.68 108.55,359.8 128.91,376.9 " fill="none" id="7-to-11" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="132.82,380.17,128.4991,371.3196,128.9906,376.955,123.3552,377.4466,132.82,380.17" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[aa4ab59be2c9802ddfcee92066cc90c6]
+link 5 to 8--><g id="link_5_8"><path d="M147.5,227.2 C147.5,242.01 147.5,264.98 147.5,281.46 " fill="none" id="5-to-8" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="147.5,286.78,151.5,277.78,147.5,281.78,143.5,277.78,147.5,286.78" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[9dd29c1e8d46b0d1d3f862dbda83d71a]
+link 8 to 11--><g id="link_8_11"><path d="M147.5,318.2 C147.5,333.01 147.5,355.98 147.5,372.46 " fill="none" id="8-to-11" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="147.5,377.78,151.5,368.78,147.5,372.78,143.5,368.78,147.5,377.78" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[85d7481caa8a5b47e793dfeca865a36a]
+link 5 to 9--><g id="link_5_9"><path d="M163.14,225.63 C181.93,241.41 213.46,267.88 233.87,285.02 " fill="none" id="5-to-9" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="237.8,288.31,233.4791,279.4596,233.9706,285.095,228.3352,285.5866,237.8,288.31" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[3a9de236b82b3780bb92df019dffa873]
+link 9 to 11--><g id="link_9_11"><path d="M237.86,316.63 C218.75,332.68 186.45,359.8 166.09,376.9 " fill="none" id="9-to-11" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="162.18,380.17,171.6448,377.4466,166.0094,376.955,166.5009,371.3196,162.18,380.17" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[2d4b753efd65b00afdf467246674cbe5]
+link 1 to 3--><g id="link_1_3"><path d="M147.5,45.28 C147.5,60.98 147.5,83.58 147.5,99.71 " fill="none" id="1-to-3" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="147.5,104.91,151.5,95.91,147.5,99.91,143.5,95.91,147.5,104.91" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[c24e363b82b23e873c94edca50a9731f]
+link 3 to 5--><g id="link_3_5"><path d="M147.5,136.2 C147.5,151.01 147.5,173.98 147.5,190.46 " fill="none" id="3-to-5" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="147.5,195.78,151.5,186.78,147.5,190.78,143.5,186.78,147.5,195.78" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[a94a78a4bcab98299a720253a19623a8]
+link 1 to 4--><g id="link_1_4"><path d="M168.19,45.05 C187.35,61.77 215.61,86.44 234.28,102.73 " fill="none" id="1-to-4" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="238.35,106.28,234.1916,97.3521,234.58,102.9956,228.9365,103.384,238.35,106.28" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[fb7a877824a531edc27ce1774c90edf7]
+link 4 to 5--><g id="link_4_5"><path d="M237.86,134.63 C219.07,150.41 187.54,176.88 167.13,194.02 " fill="none" id="4-to-5" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="163.2,197.31,172.6648,194.5866,167.0294,194.095,167.5209,188.4596,163.2,197.31" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[fc99c2f50a524b9b2b6dfae0e0267564]
+@startuml
+rectangle "Fanin/Fanout" as 1
+usecase "task1" as 2
+usecase "task4" as 5
+usecase "task5" as 7
+usecase "end" as 11
+usecase "task6" as 8
+usecase "task7" as 9
+usecase "task2" as 3
+usecase "task3" as 4
+
+1 - -> 2
+2 - -> 5
+5 - -> 7
+7 - -> 11
+5 - -> 8
+8 - -> 11
+5 - -> 9
+9 - -> 11
+1 - -> 3
+3 - -> 5
+1 - -> 4
+4 - -> 5
+
+@enduml
+
+PlantUML version 1.2022.7(Tue Aug 23 02:01:30 JST 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: MS932
+Language: ja
+Country: JP
+--></g></svg>

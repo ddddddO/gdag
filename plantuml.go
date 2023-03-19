@@ -71,32 +71,6 @@ func (ug *umlGenerator) generateRelation(node *Node, out string) string {
 	edge := fmt.Sprintf("%d --> ", node.index)
 	if node.nodeType == intermediate {
 		edge = fmt.Sprintf("%d --> ", node.parent.index)
-		// parent := node.parent
-		// for ; parent != nil && parent.nodeType == intermediate; {
-		// 	parent = parent.parent
-		// }
-		// ret := out
-		// for _, dd := range parent.downstream {
-		// 	edge = fmt.Sprintf("%d --> ", dd.index)
-		// 	// ret := out
-		// 	for _, d := range node.downstream {
-		// 		if d.nodeType == intermediate {
-		// 			ret += ug.generateRelation(d, "")
-		// 			continue
-		// 		}
-
-		// 		key := fmt.Sprintf("%d-%d", dd.index, d.index)
-		// 		if _, ok := ug.uniqueRelations[key]; ok {
-		// 			continue
-		// 		}
-		// 		ug.uniqueRelations[key] = struct{}{}
-
-		// 		tmp := fmt.Sprintf("%s%d\n", edge, d.index)
-		// 		ret += ug.generateRelation(d, tmp)
-		// 	}
-		// 	// return ret
-		// }
-		// return ret
 	}
 
 	ret := out

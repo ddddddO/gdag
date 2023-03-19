@@ -70,6 +70,12 @@ func (upstream *Node) Con(current *Node) *Node {
 	return current
 }
 
+func Fanin(nodes ...*Node) *Node {
+	intermediateNode := newNode(intermediate, "not output")
+	intermediateNode.downstream = nodes
+	return intermediateNode
+}
+
 func (upstream *Node) Fanout(nodes ...*Node) *Node {
 	if upstream.nodeType == intermediate {
 		// TODO: 後ほど、Fanout(n1, n2).Fanout(n3, n4)みたいに、中間ノードでもチェイン出来るようにしたい
