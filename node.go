@@ -71,10 +71,14 @@ func (upstream *Node) Con(current *Node) *Node {
 }
 
 func (upstream *Node) Fanout(nodes ...*Node) *Node {
-	intermediateNode := newNode(intermediate, "not output")
-	for i := range nodes {
-		intermediateNode.downstream = append(intermediateNode.downstream, nodes[i])
+	if upstream.nodeType == intermediate {
+		// TODO: 後ほど、Fanout(n1, n2).Fanout(n3, n4)みたいに、中間ノードでもチェイン出来るようにしたい
+		panic("Fanin/Fanout calls are not supported for intermediate node.")
 	}
+
+	intermediateNode := newNode(intermediate, "not output")
+	intermediateNode.downstream = nodes
+
 	intermediateNode.parent = upstream
 	upstream.downstream = append(upstream.downstream, intermediateNode)
 	return intermediateNode
