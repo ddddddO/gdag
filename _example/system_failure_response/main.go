@@ -20,8 +20,12 @@ func main() {
 	end := g.Task("終了")
 
 	flow.Con(checkEvent).Con(checkMatter)
-	checkMatter.Con(checkBusinessImpact).Con(recoveryResponse)
-	checkMatter.Con(checkCause).Con(recoveryResponse)
+
+	checkMatter.Fanout(checkBusinessImpact, checkCause).Con(recoveryResponse)
+	// Fanout method is same below.
+	// checkMatter.Con(checkBusinessImpact).Con(recoveryResponse)
+	// checkMatter.Con(checkCause).Con(recoveryResponse)
+
 	recoveryResponse.Con(permanentResponse)
 	permanentResponse.Con(faultAnalysis)
 	permanentResponse.Con(recurrencePreventionMeasures)
@@ -34,4 +38,11 @@ func main() {
 		os.Exit(1)
 	}
 	fmt.Println(uml)
+
+	// mermaid, err := flow.Mermaid()
+	// if err != nil {
+	// 	fmt.Fprintln(os.Stderr, err)
+	// 	os.Exit(1)
+	// }
+	// fmt.Println(mermaid)
 }

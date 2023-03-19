@@ -47,6 +47,8 @@ func (ug *umlGenerator) generateComponent(node *Node) string {
 func (*umlGenerator) renderComponent(node *Node) string {
 	ret := ""
 	switch node.nodeType {
+	case intermediate:
+		break
 	case rectangle, usecase:
 		s := fmt.Sprintf("%s \"%s\" as %d", node.nodeType, node.text, node.index)
 		if len(node.color) != 0 {
@@ -67,8 +69,17 @@ func (ug *umlGenerator) generateRelations(start *Node) string {
 
 func (ug *umlGenerator) generateRelation(node *Node, out string) string {
 	edge := fmt.Sprintf("%d --> ", node.index)
+	if node.nodeType == intermediate {
+		edge = fmt.Sprintf("%d --> ", node.parent.index)
+	}
+
 	ret := out
 	for _, d := range node.downstream {
+		if d.nodeType == intermediate {
+			ret += ug.generateRelation(d, "")
+			continue
+		}
+
 		key := fmt.Sprintf("%d-%d", node.index, d.index)
 		if _, ok := ug.uniqueRelations[key]; ok {
 			continue
