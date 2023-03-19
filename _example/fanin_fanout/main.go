@@ -24,8 +24,7 @@ func main() {
 	// block2
 	// dag.Fanout(task1, task2, task3).Con(task4).Fanout(g.Task("task5"), g.Task("task6"), g.Task("task7")).Con(g.Task("end"))
 
-	uml, err := dag.Mermaid()
-	// uml, err := dag.UML()
+	uml, err := dag.UML()
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
