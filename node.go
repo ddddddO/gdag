@@ -71,16 +71,17 @@ func (upstream *Node) Con(current *Node) *Node {
 }
 
 func Fanin(nodes ...*Node) *Node {
+	for i := range nodes {
+		nodes[i].invalid()
+	}
+
 	intermediateNode := newNode(intermediate, "not output")
 	intermediateNode.downstream = nodes
 	return intermediateNode
 }
 
 func (upstream *Node) Fanout(nodes ...*Node) *Node {
-	if upstream.nodeType == intermediate {
-		// TODO: 後ほど、Fanout(n1, n2).Fanout(n3, n4)みたいに、中間ノードでもチェイン出来るようにしたい
-		panic("Fanin/Fanout calls are not supported for intermediate node.")
-	}
+	upstream.invalid()
 
 	intermediateNode := newNode(intermediate, "not output")
 	intermediateNode.downstream = nodes
@@ -88,6 +89,14 @@ func (upstream *Node) Fanout(nodes ...*Node) *Node {
 	intermediateNode.parent = upstream
 	upstream.downstream = append(upstream.downstream, intermediateNode)
 	return intermediateNode
+}
+
+// TODO: refactor
+func (n *Node) invalid() {
+	if n.nodeType == intermediate {
+		// TODO: 後ほど、Fanout(n1, n2).Fanout(n3, n4)みたいに、中間ノードでもチェイン出来るようにしたい
+		panic("Fanin/Fanout calls are not supported for intermediate node.")
+	}
 }
 
 func (current *Node) Note(note string) *Node {
