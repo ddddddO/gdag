@@ -301,9 +301,6 @@ func main() {
 ## Miscellaneous
 
 ### FanIn/FanOut
-> **Warning**<br>
-> Continued calls to Fanin/Fanout func will result in panic.<br>
-> e.g. ❌t.Fanout(n1).Fanout(n2) / ❌Fanin(t.Fanout(n1))
 
 1. Fanin/Fanout func usage
 	```go
@@ -318,21 +315,21 @@ func main() {
 
 	func main() {
 		dag := g.DAG("Fanin/Fanout")
-		task1 := g.Task("task1")
-		task2 := g.Task("task2")
-		task3 := g.Task("task3")
-		task4 := g.Task("task4")
-
-		// block1
-		dag.Fanout(task1, task2, task3).Con(task4)
-		task5 := task4.Con(g.Task("task5"))
-		task6 := task4.Con(g.Task("task6"))
-		task7 := task4.Con(g.Task("task7"))
-		g.Fanin(task5, task6, task7).Con(g.Task("end"))
-
-		// block2
-		// dag.Fanout(task1, task2, task3).Con(task4).Fanout(g.Task("task5"), g.Task("task6"), g.Task("task7")).Con(g.Task("end"))
-
+		dag.Fanout(
+			g.Task("t1"), g.Task("t2"),
+		).Fanin(
+			g.Task("t3"),
+		).Fanout(
+			g.Task("t4"), g.Task("t5"), g.Task("t6"), g.Task("t7"),
+		).Fanin(
+			g.Task("t8"),
+		).Con(
+			g.Task("t9"),
+		).Fanout(
+			g.Task("t10"), g.Task("t11"),
+		).Fanin(
+			g.Task("end"),
+		)
 		uml, err := dag.UML()
 		if err != nil {
 			fmt.Fprintln(os.Stderr, err)
@@ -341,9 +338,9 @@ func main() {
 		fmt.Println(uml)
 	}
 	```
-	- `block1` and `block2` are same result.
 
 2. Result
+
 	![](./_example/fanin_fanout/uml.svg)
 
 ### short name methods

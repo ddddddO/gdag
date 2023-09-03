@@ -48,8 +48,6 @@ func (*mermaidGenerator) renderComponent(node *Node) string {
 	ret := ""
 	// TODO: mermaid用に修正するかどうか。リファクタは必要
 	switch node.nodeType {
-	case intermediate:
-		break
 	case rectangle:
 		s := fmt.Sprintf("%d(\"%s\")", node.index, node.text)
 		if len(node.colorMermaid) != 0 {
@@ -78,17 +76,8 @@ func (mg *mermaidGenerator) generateRelations(start *Node) string {
 
 func (mg *mermaidGenerator) generateRelation(node *Node, out string) string {
 	edge := fmt.Sprintf("%d --> ", node.index)
-	if node.nodeType == intermediate {
-		edge = fmt.Sprintf("%d --> ", node.parent.index)
-	}
-
 	ret := out
 	for _, d := range node.downstream {
-		if d.nodeType == intermediate {
-			ret += mg.generateRelation(d, "")
-			continue
-		}
-
 		key := fmt.Sprintf("%d-%d", node.index, d.index)
 		if _, ok := mg.uniqueRelations[key]; ok {
 			continue

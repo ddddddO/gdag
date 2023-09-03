@@ -63,9 +63,6 @@ func (*checkListGenerator) renderRow(node *Node) string {
 	if node.isDone() {
 		return fmt.Sprintf("- [x] %s\n", node.text)
 	} else {
-		if node.nodeType == intermediate {
-			return ""
-		}
 		return fmt.Sprintf("- [ ] %s\n", node.text)
 	}
 }
