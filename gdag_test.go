@@ -39,41 +39,41 @@ func Example() {
 		os.Exit(1)
 	}
 	fmt.Println(uml)
-	// Output:
+	// Unordered output:
 	// @startuml
-	// rectangle "ゴール(目的)" as 23
-	// usecase "設計" as 24 #DarkGray
-	// usecase "レビュー対応" as 25 #DarkGray
-	// usecase "feature1開発" as 26
+	// rectangle "ゴール(目的)" as 36
+	// usecase "設計" as 37 #DarkGray
+	// usecase "レビュー対応" as 38 #DarkGray
+	// usecase "feature1開発" as 39
 	// note left
 	// xxが担当
 	// end note
-	// usecase "レビュー対応" as 27
-	// usecase "結合テスト" as 31
-	// usecase "リリース" as 32
-	// usecase "finish" as 33 #DarkGray
-	// usecase "feature2開発" as 28 #DarkGray
+	// usecase "レビュー対応" as 40
+	// usecase "結合テスト" as 44
+	// usecase "リリース" as 45
+	// usecase "finish" as 46 #DarkGray
+	// usecase "feature2開発" as 41 #DarkGray
 	// note left
 	// yyが担当
 	// end note
-	// usecase "レビュー対応" as 29
-	// usecase "インフラ準備" as 30
+	// usecase "レビュー対応" as 42
+	// usecase "インフラ準備" as 43
 	// note left
 	// zzが担当
 	// end note
 	//
-	// 23 --> 24
-	// 24 --> 25
-	// 25 --> 26
-	// 26 --> 27
-	// 27 --> 31
-	// 31 --> 32
-	// 32 --> 33
-	// 25 --> 28
-	// 28 --> 29
-	// 29 --> 31
-	// 25 --> 30
-	// 30 --> 31
+	// 36 --> 37
+	// 37 --> 38
+	// 38 --> 39
+	// 39 --> 40
+	// 40 --> 44
+	// 44 --> 45
+	// 45 --> 46
+	// 38 --> 41
+	// 41 --> 42
+	// 42 --> 44
+	// 38 --> 43
+	// 43 --> 44
 	//
 	// @enduml
 }

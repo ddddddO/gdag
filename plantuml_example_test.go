@@ -41,41 +41,41 @@ func ExampleNode_UML() {
 		os.Exit(1)
 	}
 	fmt.Println(uml)
-	// Output:
+	// Unordered output:
 	// @startuml
-	// rectangle "ゴール(目的)" as 45
-	// usecase "設計" as 46 #DarkGray
-	// usecase "レビュー対応" as 47 #DarkGray
-	// usecase "feature1開発" as 48
+	// rectangle "ゴール(目的)" as 58
+	// usecase "設計" as 59 #DarkGray
+	// usecase "レビュー対応" as 60 #DarkGray
+	// usecase "feature1開発" as 61
 	// note left
 	// xxが担当
 	// end note
-	// usecase "レビュー対応" as 49
-	// usecase "結合テスト" as 53
-	// usecase "リリース" as 54
-	// usecase "finish" as 55 #DarkGray
-	// usecase "feature2開発" as 50 #DarkGray
+	// usecase "レビュー対応" as 62
+	// usecase "結合テスト" as 66
+	// usecase "リリース" as 67
+	// usecase "finish" as 68 #DarkGray
+	// usecase "feature2開発" as 63 #DarkGray
 	// note left
 	// yyが担当
 	// end note
-	// usecase "レビュー対応" as 51
-	// usecase "インフラ準備" as 52
+	// usecase "レビュー対応" as 64
+	// usecase "インフラ準備" as 65
 	// note left
 	// zzが担当
 	// end note
 	//
-	// 45 --> 46
-	// 46 --> 47
-	// 47 --> 48
-	// 48 --> 49
-	// 49 --> 53
-	// 53 --> 54
-	// 54 --> 55
-	// 47 --> 50
-	// 50 --> 51
-	// 51 --> 53
-	// 47 --> 52
-	// 52 --> 53
+	// 58 --> 59
+	// 59 --> 60
+	// 60 --> 61
+	// 61 --> 62
+	// 62 --> 66
+	// 66 --> 67
+	// 67 --> 68
+	// 60 --> 63
+	// 63 --> 64
+	// 64 --> 66
+	// 60 --> 65
+	// 65 --> 66
 	//
 	// @enduml
 }
@@ -113,41 +113,41 @@ func ExampleNode_UML_ShortMethod() {
 		os.Exit(1)
 	}
 	fmt.Println(uml)
-	// Output:
+	// Unordered output:
 	// @startuml
-	// rectangle "ゴール(目的)" as 56
-	// usecase "設計" as 57 #DarkGray
-	// usecase "レビュー対応" as 58 #DarkGray
-	// usecase "feature1開発" as 59
+	// rectangle "ゴール(目的)" as 69
+	// usecase "設計" as 70 #DarkGray
+	// usecase "レビュー対応" as 71 #DarkGray
+	// usecase "feature1開発" as 72
 	// note left
 	// xxが担当
 	// end note
-	// usecase "レビュー対応" as 60
-	// usecase "結合テスト" as 64
-	// usecase "リリース" as 65
-	// usecase "finish" as 66 #DarkGray
-	// usecase "feature2開発" as 61 #DarkGray
+	// usecase "レビュー対応" as 73
+	// usecase "結合テスト" as 77
+	// usecase "リリース" as 78
+	// usecase "finish" as 79 #DarkGray
+	// usecase "feature2開発" as 74 #DarkGray
 	// note left
 	// yyが担当
 	// end note
-	// usecase "レビュー対応" as 62
-	// usecase "インフラ準備" as 63
+	// usecase "レビュー対応" as 75
+	// usecase "インフラ準備" as 76
 	// note left
 	// zzが担当
 	// end note
 	//
-	// 56 --> 57
-	// 57 --> 58
-	// 58 --> 59
-	// 59 --> 60
-	// 60 --> 64
-	// 64 --> 65
-	// 65 --> 66
-	// 58 --> 61
-	// 61 --> 62
-	// 62 --> 64
-	// 58 --> 63
-	// 63 --> 64
+	// 69 --> 70
+	// 70 --> 71
+	// 71 --> 72
+	// 72 --> 73
+	// 73 --> 77
+	// 77 --> 78
+	// 78 --> 79
+	// 71 --> 74
+	// 74 --> 75
+	// 75 --> 77
+	// 71 --> 76
+	// 76 --> 77
 	//
 	// @enduml
 }
@@ -196,56 +196,56 @@ func ExampleNode_UML_Multiple() {
 		os.Exit(1)
 	}
 	fmt.Println(infraUML)
-	// Output:
+	// Unordered output:
 	// @startuml
-	// rectangle "ゴール(目的)" as 67
-	// usecase "設計" as 68 #DarkGray
-	// usecase "レビュー対応" as 69 #DarkGray
-	// usecase "feature1開発" as 70
+	// rectangle "ゴール(目的)" as 80
+	// usecase "設計" as 81 #DarkGray
+	// usecase "レビュー対応" as 82 #DarkGray
+	// usecase "feature1開発" as 83
 	// note left
 	// xxが担当
 	// end note
-	// usecase "レビュー対応" as 71
-	// usecase "結合テスト" as 75
-	// usecase "リリース" as 76
-	// usecase "finish" as 77 #DarkGray
-	// usecase "feature2開発" as 72 #DarkGray
+	// usecase "レビュー対応" as 84
+	// usecase "結合テスト" as 88
+	// usecase "リリース" as 89
+	// usecase "finish" as 90 #DarkGray
+	// usecase "feature2開発" as 85 #DarkGray
 	// note left
 	// yyが担当
 	// end note
-	// usecase "レビュー対応" as 73
-	// usecase "インフラ準備" as 74
+	// usecase "レビュー対応" as 86
+	// usecase "インフラ準備" as 87
 	// note left
 	// zzが担当
 	// end note
 	//
-	// 67 --> 68
-	// 68 --> 69
-	// 69 --> 70
-	// 70 --> 71
-	// 71 --> 75
-	// 75 --> 76
-	// 76 --> 77
-	// 69 --> 72
-	// 72 --> 73
-	// 73 --> 75
-	// 69 --> 74
-	// 74 --> 75
+	// 80 --> 81
+	// 81 --> 82
+	// 82 --> 83
+	// 83 --> 84
+	// 84 --> 88
+	// 88 --> 89
+	// 89 --> 90
+	// 82 --> 85
+	// 85 --> 86
+	// 86 --> 88
+	// 82 --> 87
+	// 87 --> 88
 	//
 	// @enduml
 	//
 	// @startuml
-	// usecase "インフラ準備" as 74
+	// usecase "インフラ準備" as 87
 	// note left
 	// zzが担当
 	// end note
-	// usecase "結合テスト" as 75
-	// usecase "リリース" as 76
-	// usecase "finish" as 77 #DarkGray
+	// usecase "結合テスト" as 88
+	// usecase "リリース" as 89
+	// usecase "finish" as 90 #DarkGray
 	//
-	// 74 --> 75
-	// 75 --> 76
-	// 76 --> 77
+	// 87 --> 88
+	// 88 --> 89
+	// 89 --> 90
 	//
 	// @enduml
 }
