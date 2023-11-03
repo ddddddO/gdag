@@ -8,7 +8,7 @@ type Node struct {
 	color        string // done: #DarkGray
 	colorMermaid string // done: doneColor
 
-	parent     *Node // TODO: 現状、中間ノードのためにおいてる
+	// parent     *Node // TODO: 現状、中間ノードのためにおいてる
 	downstream []*Node
 }
 
