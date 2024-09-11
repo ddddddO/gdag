@@ -400,3 +400,6 @@ func main() {
 
 # Reference
 - [about DAG](https://nave-kazu.hatenablog.com/entry/2015/11/30/154810)
+
+# Stargazers over time
+[![Stargazers over time](https://starchart.cc/ddddddO/gdag.svg?variant=adaptive)](https://starchart.cc/ddddddO/gdag)
