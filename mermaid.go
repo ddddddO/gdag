@@ -57,6 +57,9 @@ func (*mermaidGenerator) renderComponent(node *Node) string {
 		ret += s
 	case usecase:
 		s := fmt.Sprintf("%d([\"%s\"])", node.index, node.text)
+		if node.hour > 0 {
+			s = fmt.Sprintf("%d([\"%s (%.1fh)\"])", node.index, node.text, node.hour)
+		}
 		if len(node.colorMermaid) != 0 {
 			s += fmt.Sprintf(":::%s", node.colorMermaid)
 		}
