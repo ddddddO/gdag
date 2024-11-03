@@ -19,3 +19,8 @@ func (upstream *Node) C(current *Node) *Node {
 func (current *Node) N(note string) *Node {
 	return current.Note(note)
 }
+
+// H is short name of Hour func.
+func (current *Node) H(hour float64) *Node {
+	return current.Hour(hour)
+}

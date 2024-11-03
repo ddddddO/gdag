@@ -1,15 +1,18 @@
 package gdag
 
 type Node struct {
-	nodeType     nodeType
-	index        int // mermaidの識別子としても利用する
-	text         string
-	note         string
+	nodeType nodeType
+	index    int // mermaidの識別子としても利用する
+	text     string
+	note     string
+	hour     float64 // 見積時間
+
 	color        string // done: #DarkGray
 	colorMermaid string // done: doneColor
 
 	// parent     *Node // TODO: 現状、中間ノードのためにおいてる
 	downstream []*Node
+	startPoint bool // レンダリング処理の最初の node ということ
 }
 
 type nodeType string
@@ -82,6 +85,11 @@ func (fio *FanIO) Fanin(current *Node) *Node {
 
 func (current *Node) Note(note string) *Node {
 	current.note = note
+	return current
+}
+
+func (current *Node) Hour(hour float64) *Node {
+	current.hour = hour
 	return current
 }
 
